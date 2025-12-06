@@ -1,0 +1,182 @@
+:root {
+  --primary-color: #795548;
+  --cream-bg: #fcfaf6;
+  --text-color: #333333;
+  --white: #ffffff;
+  --border-color: #e0d5c4;
+  --shadow-color: rgba(0,0,0,0.12);
+}
+
+/* Full Page Wrapper */
+.login-wrapper {
+  height: 100vh;
+  background: var(--cream-bg);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+/* Center Box */
+.login-box {
+  background: var(--white);
+  width: 380px;
+  padding: 40px 35px;
+  border-radius: 16px;
+  box-shadow: 0 10px 38px rgba(0,0,0,0.08), 
+              0 10px 12px rgba(0,0,0,0.04);
+  animation: fadeIn 0.5s ease;
+}
+
+/* Title */
+.login-box h2 {
+  text-align: center;
+  font-size: 28px;
+  color: var(--primary-color);
+  margin-bottom: 25px;
+  letter-spacing: 1px;
+}
+
+/* Input Label */
+.login-box label {
+  display: block;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-color);
+  margin-bottom: 5px;
+}
+
+/* Input Fields */
+.login-box input {
+  width: 100%;
+  padding: 14px 12px;
+  margin-bottom: 22px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  font-size: 15px;
+  transition: 0.3s ease;
+  background: #fffdf9;
+}
+
+.login-box input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 8px rgba(121, 85, 72, 0.2);
+}
+
+/* Error Text */
+.error {
+  color: #d9534f;
+  margin-bottom: 10px;
+  text-align: center;
+  font-weight: 600;
+}
+
+/* Button */
+.login-btn {
+  width: 100%;
+  padding: 14px;
+  background: var(--primary-color);
+  color: var(--white);
+  border: none;
+  border-radius: 8px;
+  font-size: 17px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.login-btn:hover {
+  background: #5d4037;
+  box-shadow: 0 5px 12px rgba(121,85,72,0.3);
+}
+
+/* Smooth Animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ===================================
+   MOBILE RESPONSIVE
+=================================== */
+
+@media (max-width: 768px) {
+  .login-wrapper {
+    padding: 16px;
+    align-items: flex-start;
+    padding-top: 60px;
+  }
+
+  .login-box {
+    width: 100%;
+    max-width: 360px;
+    padding: 32px 24px;
+  }
+
+  .login-box h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+
+  .login-box label {
+    font-size: 14px;
+  }
+
+  .login-box input {
+    padding: 12px 10px;
+    margin-bottom: 18px;
+    font-size: 14px;
+  }
+
+  .login-btn {
+    padding: 12px;
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .login-wrapper {
+    padding: 12px;
+    padding-top: 40px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+
+  .login-box {
+    width: 100%;
+    padding: 24px 18px;
+    border-radius: 12px;
+  }
+
+  .login-box h2 {
+    font-size: 22px;
+    margin-bottom: 18px;
+  }
+
+  .login-box label {
+    font-size: 13px;
+    margin-bottom: 4px;
+  }
+
+  .login-box input {
+    padding: 11px 10px;
+    margin-bottom: 16px;
+    font-size: 13px;
+    border-radius: 6px;
+    box-sizing: border-box;
+  }
+
+  .error {
+    font-size: 13px;
+    margin-bottom: 8px;
+  }
+
+  .login-btn {
+    padding: 11px;
+    font-size: 14px;
+    border-radius: 6px;
+  }
+}

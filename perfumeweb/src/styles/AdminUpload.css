@@ -1,0 +1,177 @@
+:root {
+  --primary-color: #795548;
+  --cream-bg: #fcfaf6;
+  --white: #ffffff;
+  --dark: #2c2c2c;
+}
+
+.admin-upload-container {
+  background: var(--cream-bg);
+  min-height: 100vh;
+  padding: 40px;
+}
+
+.admin-upload-container h1 {
+  text-align: center;
+  color: var(--primary-color);
+  font-weight: 900;
+  margin-bottom: 30px;
+}
+
+.upload-form {
+  max-width: 500px;
+  margin: auto;
+  background: var(--white);
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.upload-form label {
+  font-weight: 600;
+  color: var(--dark);
+  margin-top: 12px;
+  display: block;
+}
+
+.upload-form input,
+.upload-form textarea,
+.upload-form select {
+  width: 100%;
+  margin-top: 5px;
+  padding: 12px;
+  border: 1px solid #d7ccc8;
+  border-radius: 8px;
+  background: #fffdf9;
+  font-size: 15px;
+  transition: 0.3s;
+}
+
+.upload-form input:focus,
+.upload-form textarea:focus,
+.upload-form select:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 6px rgba(121, 85, 72, 0.3);
+}
+
+.upload-btn {
+  margin-top: 20px;
+  width: 100%;
+  padding: 14px;
+  background: var(--primary-color);
+  color: var(--white);
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.upload-btn:hover {
+  background: #5d4037;
+}
+
+.upload-msg {
+  text-align: center;
+  color: var(--primary-color);
+  font-weight: 700;
+  margin-bottom: 15px;
+
+/* ===================================
+   MOBILE RESPONSIVE
+=================================== */
+
+@media (max-width: 768px) {
+  .admin-upload-container {
+    padding: 30px 16px;
+  }
+
+  .admin-upload-container h1 {
+    font-size: 28px;
+    margin-bottom: 24px;
+  }
+
+  .upload-form {
+    max-width: 100%;
+    padding: 24px;
+    border-radius: 12px;
+  }
+
+  .upload-form label {
+    font-size: 14px;
+    margin-top: 10px;
+  }
+
+  .upload-form input,
+  .upload-form textarea,
+  .upload-form select {
+    padding: 11px;
+    font-size: 14px;
+    margin-top: 4px;
+  }
+
+  .upload-btn {
+    padding: 12px;
+    font-size: 15px;
+    margin-top: 18px;
+  }
+
+  .upload-msg {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .admin-upload-container {
+    padding: 20px 12px;
+    min-height: 100vh;
+  }
+
+  .admin-upload-container h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+
+  .upload-form {
+    max-width: 100%;
+    padding: 18px;
+    border-radius: 10px;
+  }
+
+  .upload-form label {
+    font-size: 13px;
+    margin-top: 10px;
+    margin-bottom: 4px;
+  }
+
+  .upload-form input,
+  .upload-form textarea,
+  .upload-form select {
+    padding: 10px;
+    margin-top: 4px;
+    margin-bottom: 4px;
+    font-size: 13px;
+    border-radius: 6px;
+    box-sizing: border-box;
+  }
+
+  .upload-form textarea {
+    min-height: 100px;
+    resize: vertical;
+  }
+
+  .upload-btn {
+    padding: 11px;
+    font-size: 14px;
+    margin-top: 16px;
+    border-radius: 6px;
+  }
+
+  .upload-msg {
+    font-size: 13px;
+    margin-bottom: 12px;
+  }
+}
+}

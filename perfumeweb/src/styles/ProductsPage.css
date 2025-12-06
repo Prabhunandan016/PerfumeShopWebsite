@@ -1,0 +1,426 @@
+/* ---------------------------------------------------
+   GLOBAL PAGE WRAPPER (Luxury Minimal)
+--------------------------------------------------- */
+.products-wrapper {
+  width: 100%;
+  min-height: 100vh;
+  padding: 50px 0;
+  background: var(--cream-bg);
+  font-family: "Poppins", sans-serif;
+}
+
+/* ---------------------------------------------------
+   PAGE TITLE
+--------------------------------------------------- */
+.products-heading {
+  text-align: center;
+  font-size: 46px;
+  font-weight: 800;
+  color: #4a3e3e;
+  margin-bottom: 40px;
+  letter-spacing: 1px;
+}
+
+/* ---------------------------------------------------
+   FILTER SECTION (Premium Glass Filters)
+--------------------------------------------------- */
+.filters-container {
+  width: 88%;
+  margin: 0 auto 45px auto;
+
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+  flex-wrap: wrap;
+}
+
+.filter-select {
+  padding: 13px 20px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #4a3e3e;
+
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 16px;
+  border: 1px solid rgba(121, 85, 72, 0.25);
+
+  backdrop-filter: blur(8px);
+  cursor: pointer;
+  transition: 0.35s ease;
+  min-width: 190px;
+
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.1);
+}
+
+.filter-select:hover {
+  background: rgba(255, 255, 255, 0.92);
+  transform: translateY(-4px);
+}
+
+/* ---------------------------------------------------
+   PRODUCT GRID
+--------------------------------------------------- */
+.products-grid {
+  width: 90%;
+  margin: auto;
+  display: grid;
+  gap: 60px;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 2fr));
+}
+
+/* ---------------------------------------------------
+   PRODUCT CARD (No Box, Floating Style)
+--------------------------------------------------- */
+.product-card {
+  text-align: center;
+  position: relative;
+  transition: 0.4s ease;
+  cursor: pointer;
+}
+
+.product-card:hover {
+  transform: translateY(-12px);
+}
+
+/* ---------------------------------------------------
+   IMAGE (Floating Soft Glow)
+--------------------------------------------------- */
+.product-image {
+  width: 100%;
+  height: 330px;
+  object-fit: cover;
+
+  border-radius: 26px;
+
+  box-shadow: 0 35px 60px rgba(0, 0, 0, 0.12);
+  transition: 0.4s ease;
+}
+
+.product-card:hover .product-image {
+  transform: scale(1.05);
+}
+
+/* ---------------------------------------------------
+   PRODUCT TEXT (Luxury)
+--------------------------------------------------- */
+.product-name {
+  margin-top: 18px;
+  font-size: 22px;
+  font-weight: 700;
+  color: #3e3333;
+}
+
+.product-tag {
+  font-size: 13px;
+  font-weight: 700;
+  color: #795548;
+  margin-top: 4px;
+  letter-spacing: 1px;
+}
+
+.product-size {
+  margin-top: 6px;
+  font-size: 15px;
+  color: #686767;
+}
+
+/* ---------------------------------------------------
+   PRICE STYLING (Minimal)
+--------------------------------------------------- */
+.product-price {
+  margin-top: 12px;
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  align-items: center;
+}
+
+.old-price {
+  font-size: 16px;
+  color: #999;
+  text-decoration: line-through;
+}
+
+.new-price {
+  font-size: 22px;
+  font-weight: 800;
+  color: #4a3e3e;
+}
+
+/* ---------------------------------------------------
+   DISCOUNT BUBBLE
+--------------------------------------------------- */
+.discount-tag {
+  position: absolute;
+  top: 14px;
+  right: 20px;
+
+  background: #ff5252;
+  color: #fff;
+
+  padding: 6px 13px;
+  font-size: 12px;
+  border-radius: 30px;
+  font-weight: 700;
+  box-shadow: 0 10px 20px rgba(255, 82, 82, 0.35);
+}
+
+/* ---------------------------------------------------
+   ADD TO CART BUTTON
+--------------------------------------------------- */
+.product-btn {
+  margin-top: 18px;
+  padding: 13px 0;
+  width: 100%;
+
+  border-radius: 40px;
+  border: none;
+
+  background: #795548;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+
+  transition: 0.3s ease;
+}
+
+.product-btn:hover {
+  background: #5d4037;
+  transform: translateY(-3px);
+}
+
+/* -------------------------------
+   LOGIN PROMPT MODAL
+----------------------------------*/
+.login-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 80;
+}
+
+.login-modal {
+  width: 420px;
+  max-width: calc(100% - 48px);
+  background: var(--white);
+  padding: 22px;
+  border-radius: 12px;
+  box-shadow: 0 18px 50px rgba(0,0,0,0.25);
+  text-align: center;
+}
+
+.login-modal h3 {
+  margin: 0 0 8px 0;
+  color: #3e3333;
+}
+
+.login-modal p {
+  color: #666;
+  margin-bottom: 18px;
+}
+
+.login-modal-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+
+.modal-btn {
+  padding: 10px 16px;
+  border-radius: 10px;
+  background: #f0f0f0;
+  border: none;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.modal-primary {
+  background: var(--primary-color);
+  color: white;
+}
+
+@media (max-width: 1024px) {
+  .products-heading {
+    font-size: 40px;
+    margin-bottom: 32px;
+  }
+  .filters-container {
+    width: 92%;
+    gap: 18px;
+    margin-bottom: 40px;
+  }
+  .filter-select {
+    min-width: 170px;
+    font-size: 14px;
+    padding: 12px 16px;
+  }
+  .products-grid {
+    width: 92%;
+    gap: 40px;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  }
+  .product-image {
+    height: 280px;
+  }
+  .product-name {
+    font-size: 20px;
+    margin-top: 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  .products-wrapper {
+    padding: 36px 0;
+  }
+  .products-heading {
+    font-size: 32px;
+    margin-bottom: 24px;
+    margin-top: 12px;
+  }
+  .filters-container {
+    width: 95%;
+    gap: 14px;
+    margin-bottom: 32px;
+    margin-top: 8px;
+  }
+  .filter-select {
+    min-width: 150px;
+    font-size: 13px;
+    padding: 11px 14px;
+  }
+  .products-grid {
+    width: 95%;
+    gap: 30px;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+  .product-image {
+    height: 240px;
+    border-radius: 20px;
+  }
+  .product-card:hover {
+    transform: translateY(-8px);
+  }
+  .product-card:hover .product-image {
+    transform: scale(1.03);
+  }
+  .product-name {
+    font-size: 18px;
+    margin-top: 14px;
+  }
+  .product-tag {
+    font-size: 12px;
+    margin-top: 3px;
+  }
+  .product-size {
+    font-size: 13px;
+  }
+  .product-price {
+    margin-top: 10px;
+    gap: 10px;
+  }
+  .old-price {
+    font-size: 14px;
+  }
+  .new-price {
+    font-size: 19px;
+  }
+  .discount-tag {
+    top: 10px;
+    right: 14px;
+    padding: 5px 11px;
+    font-size: 11px;
+  }
+  .product-btn {
+    margin-top: 14px;
+    padding: 11px 0;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .products-wrapper {
+    padding: 24px 0;
+  }
+  .products-heading {
+    font-size: 26px;
+    margin-bottom: 18px;
+    margin-top: 8px;
+  }
+  .filters-container {
+    width: 98%;
+    gap: 10px;
+    margin-bottom: 24px;
+    flex-direction: column;
+  }
+  .filter-select {
+    min-width: 100%;
+    font-size: 12px;
+    padding: 10px 12px;
+  }
+  .products-grid {
+    width: 97%;
+    gap: 20px;
+    grid-template-columns: 1fr;
+  }
+  .product-image {
+    height: 200px;
+    border-radius: 16px;
+  }
+  .product-card {
+    margin-bottom: 8px;
+  }
+  .product-card:hover {
+    transform: translateY(-4px);
+  }
+  .product-card:hover .product-image {
+    transform: scale(1.02);
+  }
+  .product-name {
+    font-size: 16px;
+    margin-top: 12px;
+  }
+  .product-tag {
+    font-size: 11px;
+    margin-top: 2px;
+  }
+  .product-size {
+    font-size: 12px;
+    margin-top: 4px;
+  }
+  .product-price {
+    margin-top: 8px;
+    gap: 8px;
+  }
+  .old-price {
+    font-size: 13px;
+  }
+  .new-price {
+    font-size: 17px;
+  }
+  .discount-tag {
+    top: 8px;
+    right: 10px;
+    padding: 4px 9px;
+    font-size: 10px;
+  }
+  .product-btn {
+    margin-top: 12px;
+    padding: 10px 0;
+    font-size: 13px;
+    border-radius: 30px;
+  }
+  .login-modal { 
+    padding: 16px;
+    width: 90%;
+  }
+  .modal-btn { 
+    padding: 8px 12px;
+    font-size: 12px;
+  }
+  .login-modal-actions {
+    flex-direction: column;
+  }
+}
