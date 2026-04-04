@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
-import "../styles/Navbar.css";
+import "../styles/navbar.css";
 
 function Navbar() {
   const { isLoggedIn, username, logout } = useAuth();
