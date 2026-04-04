@@ -10,17 +10,37 @@ dist/
 
 # Env
 .env
+.env.local
+.env.*.local
 backend/.env
+backend/.env.local
+backend/.env.*.local
 perfumeweb/.env
+perfumeweb/.env.local
+perfumeweb/.env.*.local
 
 # Logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+lerna-debug.log*
 
 # Optional
 coverage/
 *.tgz
 
+# Build artifacts
+build/
+out/
+
+# Cache files
+.eslintcache
+*.tsbuildinfo
+
+# Windows
+Thumbs.db
+
+# Media
 *.mp4
 screenshots/
+

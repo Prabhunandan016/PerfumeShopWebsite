@@ -1,5 +1,11 @@
 import "../styles/Contactus.css";
 
+// Contact information from environment variables
+const CONTACT_PHONE = import.meta.env.VITE_CONTACT_PHONE || "+91 XXXXXXXXXX";
+const CONTACT_EMAIL = import.meta.env.VITE_CONTACT_EMAIL || "contact@scentora.com";
+const CONTACT_ADDRESS = import.meta.env.VITE_CONTACT_ADDRESS || "Your Address";
+const FORMSPREE_FORM_ID = import.meta.env.VITE_FORMSPREE_FORM_ID || "form_id";
+
 function Contactus() {
   return (
     <div className="contact-wrapper">
@@ -21,17 +27,17 @@ function Contactus() {
 
           <div className="info-box">
             <h3>📍 Address</h3>
-            <p>PerfumeShop, Mumbai, India</p>
+            <p>{CONTACT_ADDRESS}</p>
           </div>
 
           <div className="info-box">
             <h3>📞 Phone</h3>
-            <p>+91 9391552933</p>
+            <p>{CONTACT_PHONE}</p>
           </div>
 
           <div className="info-box">
             <h3>✉️ Email</h3>
-            <p>prabhunandan016@gmail.com</p>
+            <p>{CONTACT_EMAIL}</p>
           </div>
 
         </div>
@@ -39,7 +45,7 @@ function Contactus() {
         {/* Formspree Form */}
         <form 
           className="contact-form"
-          action="https://formspree.io/f/xdkqzwww"
+          action={`https://formspree.io/f/${FORMSPREE_FORM_ID}`}
           method="POST"
         >
           <h2>Send a Message</h2>

@@ -3,8 +3,8 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/ProductsPage.css";
 
-// Vite env-aware API base (falls back to localhost)
-const API = import.meta.env.VITE_API_URL || "http://localhost:5000";
+// API base URL from environment variables
+const API = import.meta.env.VITE_API_URL;
 import { useAuth } from "../context/AuthContext";
 import { useCart } from "../context/CartContext";
 

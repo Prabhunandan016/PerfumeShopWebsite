@@ -1,7 +1,8 @@
 import { useState } from "react";
 import "../styles/AdminUpload.css";
 
-const API = import.meta.env.VITE_API_URL || "http://localhost:5000";
+// API base URL from environment variables
+const API = import.meta.env.VITE_API_URL;
 
 function AdminUpload() {
   const [form, setForm] = useState({

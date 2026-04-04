@@ -12,20 +12,31 @@ const app = express();
 /* ------------------------------
    MIDDLEWARE
 ------------------------------ */
+const corsOrigin = process.env.CORS_ORIGIN || "http://localhost:5173";
 app.use(cors({
-  origin: "*",
-  methods: ["GET", "POST"],
-  allowedHeaders: ["Content-Type"],
+  origin: corsOrigin,
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: true,
 }));
 app.use(express.json());
 
 /* ------------------------------
    CONNECT MONGO
 ------------------------------ */
+const mongoURI = process.env.MONGODB_URI;
+if (!mongoURI) {
+  console.error("❌ MONGODB_URI not set in .env file");
+  process.exit(1);
+}
+
 mongoose
-  .connect(process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/perfumeproject")
-  .then(() => console.log("MongoDB Connected"))
-  .catch((err) => console.log("DB Connection Error:", err));
+  .connect(mongoURI)
+  .then(() => console.log("✅ MongoDB Connected"))
+  .catch((err) => {
+    console.error("❌ DB Connection Error:", err.message);
+    process.exit(1);
+  });
 
 /* ------------------------------
    CREATE PRODUCT (POST)
@@ -73,9 +84,12 @@ app.post("/api/products", upload.single("image"), async (req, res) => {
 app.get("/api/products", async (req, res) => {
   try {
     const products = await Product.find().sort({ createdAt: -1 });
+    console.log(`📦 Fetching products... Found: ${products.length} products`);
+    console.log("Products:", products);
     res.json(products);
   } catch (err) {
-    res.status(500).json({ error: "Failed to fetch products" });
+    console.error("❌ Error fetching products:", err.message);
+    res.status(500).json({ error: "Failed to fetch products", details: err.message });
   }
 });
 
@@ -120,13 +134,53 @@ app.post("/api/products/review/:id", async (req, res) => {
 });
 
 /* ------------------------------
+   LOGIN ENDPOINT (POST)
+   Expects: { username: String, password: String }
+   Returns: { success: Boolean, message: String, username: String }
+------------------------------ */
+app.post("/api/auth/login", (req, res) => {
+  try {
+    const { username, password } = req.body;
+
+    if (!username || !password) {
+      return res.status(400).json({ error: "Username and password required" });
+    }
+
+    const adminUsername = process.env.ADMIN_USERNAME;
+    const adminPassword = process.env.ADMIN_PASSWORD;
+
+    if (username === adminUsername && password === adminPassword) {
+      res.json({
+        success: true,
+        message: "Login successful",
+        username: adminUsername,
+      });
+    } else {
+      res.status(401).json({ error: "Invalid credentials" });
+    }
+  } catch (err) {
+    console.error("Login Error:", err);
+    res.status(500).json({ error: "Login failed" });
+  }
+});
+
+/* ------------------------------
+   HEALTH CHECK ENDPOINT (GET)
+------------------------------ */
+app.get("/api/health", (req, res) => {
+  res.json({ status: "ok", message: "Server is running" });
+});
+
+/* ------------------------------
    START SERVER
 ------------------------------ */
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT ? parseInt(process.env.PORT) : 5000;
 
 // "0.0.0.0" ensures it works on HOTSPOT / PHONE also
 app.listen(PORT, "0.0.0.0", () => {
   console.log(`\n🚀 Server Running on Port ${PORT}`);
-  console.log(`📌 Products API → http://localhost:${PORT}/api/products`);
-  console.log(`📌 Upload API   → http://localhost:${PORT}/api/products (POST)\n`);
+  console.log(`📌 Products API   → http://localhost:${PORT}/api/products`);
+  console.log(`📌 Upload API     → http://localhost:${PORT}/api/products (POST)`);
+  console.log(`📌 Auth API       → http://localhost:${PORT}/api/auth/login (POST)`);
+  console.log(`📌 Health Check   → http://localhost:${PORT}/api/health\n`);
 });

@@ -3,8 +3,8 @@ import { useNavigate } from "react-router-dom";
 import "../styles/Home.css";
 import "../styles/ProductsPage.css";
 
-// use Vite env var for API base URL (falls back to localhost during development)
-const API = import.meta.env.VITE_API_URL || "http://localhost:5000";
+// API base URL from environment variables
+const API = import.meta.env.VITE_API_URL;
 
 export default function Home() {
   const navigate = useNavigate();

@@ -2,20 +2,45 @@ import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import "../styles/Login.css";
 
+// API base URL from environment variables
+const API = import.meta.env.VITE_API_URL;
+
 function Loginpage() {
   const { login } = useAuth();
   const [user, setUser] = useState("");
   const [pass, setPass] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setError("");
+    setLoading(true);
 
-    if (user === "Nandan" && pass === "123456789") {
-      login("Nandan");
+    try {
+      const response = await fetch(`${API}/api/auth/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ username: user, password: pass }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        setError(data.error || "Invalid username or password");
+        setLoading(false);
+        return;
+      }
+
+      // Login successful
+      login(data.username);
       window.location.href = "/";
-    } else {
-      setError("Invalid username or password");
+    } catch (err) {
+      console.error("Login error:", err);
+      setError("Server error. Please try again later.");
+      setLoading(false);
     }
   };
 
@@ -27,12 +52,24 @@ function Loginpage() {
         {error && <p className="error">{error}</p>}
 
         <label>Username</label>
-        <input type="text" value={user} onChange={(e) => setUser(e.target.value)} />
+        <input
+          type="text"
+          value={user}
+          onChange={(e) => setUser(e.target.value)}
+          disabled={loading}
+        />
 
         <label>Password</label>
-        <input type="password" value={pass} onChange={(e) => setPass(e.target.value)} />
+        <input
+          type="password"
+          value={pass}
+          onChange={(e) => setPass(e.target.value)}
+          disabled={loading}
+        />
 
-        <button type="submit" className="login-btn">Login</button>
+        <button type="submit" className="login-btn" disabled={loading}>
+          {loading ? "Logging in..." : "Login"}
+        </button>
       </form>
     </div>
   );

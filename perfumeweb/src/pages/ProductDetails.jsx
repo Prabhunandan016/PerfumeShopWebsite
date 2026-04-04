@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import "../styles/ProductDetails.css";
 
-const API = import.meta.env.VITE_API_URL || "http://localhost:5000";
+// API base URL from environment variables
+const API = import.meta.env.VITE_API_URL;
 
 function ProductDetails() {
   const { id } = useParams();
