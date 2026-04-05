@@ -1,3 +1,10 @@
+/* ===== BASE RESET (critical for mobile) ===== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 :root {
   --primary-color: #795548;
   --cream-bg: #fcfaf6;
@@ -8,6 +15,7 @@
 .admin-upload-container {
   background: var(--cream-bg);
   min-height: 100vh;
+  min-height: 100dvh; /* ✅ Fix: accounts for mobile browser chrome */
   padding: 40px;
 }
 
@@ -40,11 +48,15 @@
   width: 100%;
   margin-top: 5px;
   padding: 12px;
-  border: 1px solid #d7ccc8;
+  border: 1.5px solid #d7ccc8;
   border-radius: 8px;
   background: #fffdf9;
   font-size: 15px;
-  transition: 0.3s;
+  font-family: inherit; /* ✅ Fix: prevents iOS using its own font */
+  color: var(--dark);
+  -webkit-appearance: none; /* ✅ Fix: removes iOS default styling */
+  appearance: none;
+  transition: border-color 0.3s, box-shadow 0.3s;
 }
 
 .upload-form input:focus,
@@ -52,7 +64,21 @@
 .upload-form select:focus {
   outline: none;
   border-color: var(--primary-color);
-  box-shadow: 0 0 6px rgba(121, 85, 72, 0.3);
+  box-shadow: 0 0 0 3px rgba(121, 85, 72, 0.15); /* ✅ Fix: ring instead of blur shadow */
+}
+
+.upload-form textarea {
+  resize: vertical;
+  min-height: 100px;
+  line-height: 1.5;
+}
+
+/* ✅ Fix: custom dropdown arrow (iOS hides native) */
+.upload-form select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23795548' d='M6 8L0 0h12z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 36px;
 }
 
 .upload-btn {
@@ -63,14 +89,20 @@
   color: var(--white);
   font-size: 16px;
   font-weight: 600;
+  font-family: inherit; /* ✅ Fix */
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  transition: 0.3s;
+  -webkit-tap-highlight-color: transparent; /* ✅ Fix: removes flash on mobile tap */
+  transition: background 0.2s, transform 0.1s;
 }
 
 .upload-btn:hover {
   background: #5d4037;
+}
+
+.upload-btn:active {
+  transform: scale(0.98); /* ✅ Fix: tactile feedback on mobile */
 }
 
 .upload-msg {
@@ -80,10 +112,7 @@
   margin-bottom: 15px;
 }
 
-/* ===================================
-   MOBILE RESPONSIVE
-=================================== */
-
+/* ===== TABLET ===== */
 @media (max-width: 768px) {
   .admin-upload-container {
     padding: 30px 16px;
@@ -97,77 +126,47 @@
   .upload-form {
     max-width: 100%;
     padding: 24px;
-    border-radius: 12px;
-  }
-
-  .upload-form label {
-    font-size: 14px;
-    margin-top: 10px;
-  }
-
-  .upload-form input,
-  .upload-form textarea,
-  .upload-form select {
-    padding: 11px;
-    font-size: 14px;
-    margin-top: 4px;
-  }
-
-  .upload-btn {
-    padding: 12px;
-    font-size: 15px;
-    margin-top: 18px;
-  }
-
-  .upload-msg {
-    font-size: 14px;
   }
 }
 
+/* ===== MOBILE ===== */
 @media (max-width: 480px) {
   .admin-upload-container {
-    padding: 20px 12px;
-    min-height: 100vh;
+    padding: 20px 12px 40px; /* ✅ Fix: extra bottom for safe area */
   }
 
   .admin-upload-container h1 {
-    font-size: 24px;
-    margin-bottom: 20px;
+    font-size: 22px;
+    margin-bottom: 16px;
   }
 
   .upload-form {
-    max-width: 100%;
-    padding: 18px;
+    padding: 18px 16px;
     border-radius: 10px;
   }
 
   .upload-form label {
     font-size: 13px;
-    margin-top: 10px;
-    margin-bottom: 4px;
+    margin-top: 14px;
   }
 
   .upload-form input,
   .upload-form textarea,
   .upload-form select {
-    padding: 10px;
-    margin-top: 4px;
-    margin-bottom: 4px;
-    font-size: 13px;
-    border-radius: 6px;
-    box-sizing: border-box;
+    font-size: 16px; /* ✅ Fix: prevents iOS auto-zoom on focus */
+    padding: 12px;
+    border-radius: 8px;
   }
 
   .upload-form textarea {
-    min-height: 100px;
-    resize: vertical;
+    min-height: 90px;
   }
 
   .upload-btn {
-    padding: 11px;
-    font-size: 14px;
-    margin-top: 16px;
-    border-radius: 6px;
+    padding: 14px; /* ✅ Fix: keep tall for finger tapping */
+    font-size: 15px;
+    margin-top: 18px;
+    border-radius: 8px;
   }
 
   .upload-msg {
@@ -175,4 +174,10 @@
     margin-bottom: 12px;
   }
 }
+
+/* ✅ Fix: safe area for notched phones (iPhone X+) */
+@supports (padding: env(safe-area-inset-bottom)) {
+  .admin-upload-container {
+    padding-bottom: calc(32px + env(safe-area-inset-bottom));
+  }
 }

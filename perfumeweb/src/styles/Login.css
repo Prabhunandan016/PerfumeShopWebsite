@@ -1,15 +1,23 @@
+/* ===== GLOBAL RESET ===== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 :root {
   --primary-color: #795548;
   --cream-bg: #fcfaf6;
   --text-color: #333333;
   --white: #ffffff;
   --border-color: #e0d5c4;
-  --shadow-color: rgba(0,0,0,0.12);
+  --shadow-color: rgba(0, 0, 0, 0.12);
 }
 
 /* Full Page Wrapper */
 .login-wrapper {
-  height: 100vh;
+  min-height: 100vh;
+  min-height: 100dvh; /* ✅ Fix: accounts for mobile browser chrome */
   background: var(--cream-bg);
   display: flex;
   justify-content: center;
@@ -23,8 +31,8 @@
   width: 380px;
   padding: 40px 35px;
   border-radius: 16px;
-  box-shadow: 0 10px 38px rgba(0,0,0,0.08), 
-              0 10px 12px rgba(0,0,0,0.04);
+  box-shadow: 0 10px 38px rgba(0, 0, 0, 0.08),
+              0 10px 12px rgba(0, 0, 0, 0.04);
   animation: fadeIn 0.5s ease;
 }
 
@@ -51,17 +59,21 @@
   width: 100%;
   padding: 14px 12px;
   margin-bottom: 22px;
-  border: 1px solid var(--border-color);
+  border: 1.5px solid var(--border-color);
   border-radius: 8px;
   font-size: 15px;
-  transition: 0.3s ease;
+  font-family: inherit;          /* ✅ Fix: iOS uses system font otherwise */
+  color: var(--text-color);
   background: #fffdf9;
+  -webkit-appearance: none;      /* ✅ Fix: removes iOS rounded input styling */
+  appearance: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .login-box input:focus {
   outline: none;
   border-color: var(--primary-color);
-  box-shadow: 0 0 8px rgba(121, 85, 72, 0.2);
+  box-shadow: 0 0 0 3px rgba(121, 85, 72, 0.15); /* ✅ Fix: ring > blur shadow */
 }
 
 /* Error Text */
@@ -82,13 +94,19 @@
   border-radius: 8px;
   font-size: 17px;
   font-weight: 600;
+  font-family: inherit;          /* ✅ Fix */
   cursor: pointer;
-  transition: 0.3s ease;
+  -webkit-tap-highlight-color: transparent; /* ✅ Fix: no blue flash on tap */
+  transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.1s ease;
 }
 
 .login-btn:hover {
   background: #5d4037;
-  box-shadow: 0 5px 12px rgba(121,85,72,0.3);
+  box-shadow: 0 5px 12px rgba(121, 85, 72, 0.3);
+}
+
+.login-btn:active {
+  transform: scale(0.97); /* ✅ Fix: tactile tap feedback on mobile */
 }
 
 /* Smooth Animation */
@@ -98,19 +116,17 @@
 }
 
 /* ===================================
-   MOBILE RESPONSIVE
+   TABLET (768px)
 =================================== */
-
 @media (max-width: 768px) {
   .login-wrapper {
     padding: 16px;
-    align-items: flex-start;
-    padding-top: 60px;
+    align-items: center; /* ✅ Fix: keep centered, not flush to top */
   }
 
   .login-box {
     width: 100%;
-    max-width: 360px;
+    max-width: 400px;
     padding: 32px 24px;
   }
 
@@ -130,30 +146,30 @@
   }
 
   .login-btn {
-    padding: 12px;
+    padding: 13px;
     font-size: 15px;
   }
 }
 
+/* ===================================
+   MOBILE (480px)
+=================================== */
 @media (max-width: 480px) {
   .login-wrapper {
-    padding: 12px;
-    padding-top: 40px;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
+    padding: 16px 12px;
+    align-items: center; /* ✅ Fix: vertically center on small phones too */
   }
 
   .login-box {
     width: 100%;
-    padding: 24px 18px;
-    border-radius: 12px;
+    padding: 28px 20px;
+    border-radius: 14px;
   }
 
   .login-box h2 {
     font-size: 22px;
     margin-bottom: 18px;
+    letter-spacing: 0.5px;
   }
 
   .login-box label {
@@ -162,11 +178,10 @@
   }
 
   .login-box input {
-    padding: 11px 10px;
+    padding: 12px 10px;     /* ✅ Fix: keep padding comfortable */
     margin-bottom: 16px;
-    font-size: 13px;
-    border-radius: 6px;
-    box-sizing: border-box;
+    font-size: 16px;        /* ✅ Fix: prevents iOS auto-zoom on focus */
+    border-radius: 8px;
   }
 
   .error {
@@ -175,8 +190,17 @@
   }
 
   .login-btn {
-    padding: 11px;
-    font-size: 14px;
-    border-radius: 6px;
+    padding: 14px;          /* ✅ Fix: taller tap target for thumbs */
+    font-size: 15px;
+    border-radius: 8px;
+  }
+}
+
+/* ===================================
+   SAFE AREA — iPhone X+ home bar
+=================================== */
+@supports (padding: env(safe-area-inset-bottom)) {
+  .login-wrapper {
+    padding-bottom: calc(20px + env(safe-area-inset-bottom));
   }
 }

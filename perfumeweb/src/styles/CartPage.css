@@ -1,6 +1,14 @@
+/* ===== GLOBAL RESET (critical for mobile) ===== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 .cart-wrapper {
   width: 100%;
   min-height: 100vh;
+  min-height: 100dvh; /* ✅ Fix: accounts for mobile browser chrome */
   background: #fcfaf6;
   padding: 40px 0;
   font-family: "Poppins", sans-serif;
@@ -26,8 +34,8 @@
 }
 
 @keyframes fade {
-  0% { opacity: 0; transform: translateY(-10px); }
-  20% { opacity: 1; }
+  0%   { opacity: 0; transform: translateY(-10px); }
+  20%  { opacity: 1; }
   100% { opacity: 0; transform: translateY(-20px); }
 }
 
@@ -50,7 +58,8 @@
   height: 170px;
   object-fit: cover;
   border-radius: 18px;
-  box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+  flex-shrink: 0; /* ✅ Fix: prevents image from squishing */
 }
 
 .cart-info h3 {
@@ -84,16 +93,24 @@
   border: none;
   border-radius: 50%;
   cursor: pointer;
-  transition: 0.2s;
+  font-family: inherit; /* ✅ Fix */
+  -webkit-tap-highlight-color: transparent; /* ✅ Fix: no blue flash on tap */
+  transition: background 0.2s, transform 0.1s;
 }
 
 .qty-box button:hover {
   background: #5d4037;
 }
 
+.qty-box button:active {
+  transform: scale(0.92); /* ✅ Fix: tactile feedback */
+}
+
 .qty-box span {
   font-size: 18px;
   font-weight: 600;
+  min-width: 24px;        /* ✅ Fix: prevents layout shift when qty changes */
+  text-align: center;
 }
 
 /* REMOVE BUTTON */
@@ -105,11 +122,17 @@
   border: none;
   border-radius: 12px;
   cursor: pointer;
-  transition: 0.3s;
+  font-family: inherit; /* ✅ Fix */
+  -webkit-tap-highlight-color: transparent; /* ✅ Fix */
+  transition: background 0.3s, transform 0.1s;
 }
 
 .remove-btn:hover {
   background: #b83733;
+}
+
+.remove-btn:active {
+  transform: scale(0.97); /* ✅ Fix: tactile feedback */
 }
 
 .total-box {
@@ -128,10 +151,12 @@
   background: #795548;
   color: #fff;
   font-weight: 600;
+  font-family: inherit; /* ✅ Fix */
   border: none;
   border-radius: 14px;
   cursor: pointer;
-  transition: 0.3s;
+  -webkit-tap-highlight-color: transparent; /* ✅ Fix */
+  transition: background 0.3s, transform 0.2s;
 }
 
 .buy-btn:hover {
@@ -139,14 +164,18 @@
   transform: translateY(-3px);
 }
 
+.buy-btn:active {
+  transform: scale(0.97); /* ✅ Fix: mobile tap feedback */
+}
+
 .empty-cart {
   text-align: center;
   font-size: 20px;
   margin-top: 50px;
   color: #6b6b6b;
+}
 
-
-
+/* ===== TABLET (1024px) ===== */
 @media (max-width: 1024px) {
   .cart-container {
     width: 90%;
@@ -157,6 +186,7 @@
   }
 }
 
+/* ===== TABLET (768px) ===== */
 @media (max-width: 768px) {
   .cart-wrapper {
     padding: 30px 0;
@@ -182,6 +212,10 @@
     width: 100%;
     max-width: 250px;
     height: 200px;
+  }
+
+  .cart-info {
+    width: 100%; /* ✅ Fix: full width when stacked */
   }
 
   .cart-info h3 {
@@ -225,43 +259,48 @@
   }
 }
 
+/* ===== MOBILE (480px) ===== */
 @media (max-width: 480px) {
   .cart-wrapper {
-    padding: 20px 0;
+    padding: 20px 0 40px; /* ✅ Fix: extra bottom spacing for safe area */
   }
 
   .cart-heading {
-    font-size: 24px;
+    font-size: 22px;
     margin-bottom: 15px;
   }
 
   .success-popup {
-    margin: 8px auto;
+    margin: 8px 12px;
     padding: 10px 16px;
     font-size: 14px;
     border-radius: 8px;
+    width: auto; /* ✅ Fix: don't overflow narrow screens */
   }
 
   .cart-container {
-    width: 97%;
+    width: 100%;
+    padding: 0 12px; /* ✅ Fix: use padding instead of width % on small screens */
   }
 
   .cart-card {
     flex-direction: column;
-    gap: 12px;
-    padding: 12px 0;
+    gap: 10px;
+    padding: 14px 0;
     border-bottom: 1px solid #f0e7d5;
   }
 
   .cart-img {
     width: 100%;
-    height: 180px;
-    border-radius: 14px;
+    height: auto;           /* ✅ Fix: let image scale naturally */
+    aspect-ratio: 4 / 3;   /* ✅ Fix: consistent proportions without fixed height */
+    border-radius: 12px;
+    max-width: 100%;
   }
 
   .cart-info h3 {
     font-size: 16px;
-    margin-bottom: 4px;
+    margin-bottom: 2px;
   }
 
   .cart-price {
@@ -275,25 +314,24 @@
   }
 
   .qty-box button {
-    width: 28px;
-    height: 28px;
-    font-size: 14px;
-    border-radius: 50%;
+    width: 36px;  /* ✅ Fix: 36px+ for accessible tap targets */
+    height: 36px;
+    font-size: 16px;
   }
 
   .qty-box span {
-    font-size: 14px;
+    font-size: 15px;
   }
 
   .remove-btn {
-    margin-top: 8px;
-    padding: 7px 12px;
-    font-size: 12px;
+    margin-top: 6px;
+    padding: 9px 14px;   /* ✅ Fix: taller tap target */
+    font-size: 13px;
     border-radius: 8px;
   }
 
   .total-box {
-    margin-top: 15px;
+    margin-top: 16px;
   }
 
   .total-box h2 {
@@ -302,13 +340,22 @@
 
   .buy-btn {
     margin-top: 10px;
-    padding: 10px 20px;
-    font-size: 14px;
+    padding: 14px 20px;  /* ✅ Fix: taller for finger tap */
+    font-size: 15px;
     width: 100%;
+    border-radius: 12px;
   }
 
   .empty-cart {
     font-size: 16px;
     margin-top: 40px;
+    padding: 0 16px;
+  }
+}
+
+/* ===== SAFE AREA (iPhone X+ notch/home bar) ===== */
+@supports (padding: env(safe-area-inset-bottom)) {
+  .cart-wrapper {
+    padding-bottom: calc(40px + env(safe-area-inset-bottom));
   }
 }

@@ -1,3 +1,10 @@
+/* ===== GLOBAL RESET ===== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 :root {
   --primary-color: #795548;
   --cream-bg: #fcfaf6;
@@ -5,42 +12,53 @@
   --white: #ffffff;
 }
 
-/* -------------------------------
+/* ===================================
    PAGE WRAPPER
---------------------------------*/
+=================================== */
 .details-wrapper {
   width: 100%;
   min-height: 100vh;
+  min-height: 100dvh; /* ✅ Fix: accounts for mobile browser chrome */
   padding: 40px;
   background: var(--cream-bg);
   font-family: "Poppins", sans-serif;
   position: relative;
 }
 
-/* --------------------------------
-   BACK BUTTON (RIGHT SIDE)
-----------------------------------*/
+/* ===================================
+   BACK BUTTON
+=================================== */
 .back-btn {
   position: absolute;
   right: 2.5%;
   top: 28px;
   z-index: 20;
-
   background: var(--primary-color);
   color: var(--white);
   padding: 10px 20px;
-
   border: none;
   border-radius: 50px;
   cursor: pointer;
   font-size: 16px;
   font-weight: 600;
-
-  box-shadow: 0 6px 15px rgba(0,0,0,0.15);
-  transition: 0.3s ease;
+  font-family: inherit;                    /* ✅ Fix */
+  -webkit-tap-highlight-color: transparent; /* ✅ Fix: no blue flash on tap */
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+  transition: background 0.3s ease, transform 0.2s ease;
 }
 
-/* container for actions in the top-right of the page when multiple buttons are shown */
+.back-btn:hover {
+  background: #5d4037;
+  transform: translateY(-3px);
+}
+
+.back-btn:active {
+  transform: scale(0.96); /* ✅ Fix: tactile tap feedback */
+}
+
+/* ===================================
+   TOP ACTIONS (stacked button group)
+=================================== */
 .top-actions {
   position: absolute;
   right: 12px;
@@ -52,7 +70,6 @@
   z-index: 30;
 }
 
-/* when back-btn is placed inside .top-actions we want static positioning so buttons stack vertically */
 .top-actions .back-btn {
   position: static;
   right: auto;
@@ -61,36 +78,34 @@
   border-radius: 12px;
 }
 
-/* Share button specific styling to ensure good contrast and visibility */
+/* ===================================
+   SHARE BUTTON
+=================================== */
 .share-btn {
   background: #3b3b3b;
   color: #fff;
   padding: 8px 14px;
   font-weight: 700;
+  font-family: inherit;                    /* ✅ Fix */
   border-radius: 12px;
   border: none;
   cursor: pointer;
   min-width: 84px;
+  -webkit-tap-highlight-color: transparent; /* ✅ Fix */
+  transition: background 0.3s ease, transform 0.1s ease;
 }
 
 .share-btn:hover {
   background: #2f2f2f;
 }
 
-/* On very small screens keep the actions slightly inset so they don't overlap content */
-@media (max-width: 480px) {
-  .top-actions {
-    right: 8px;
-    top: 8px;
-  }
-  .top-actions .back-btn,
-  .share-btn {
-    padding: 7px 10px;
-    font-size: 13px;
-  }
+.share-btn:active {
+  transform: scale(0.96); /* ✅ Fix */
 }
 
-/* Position modifiers: back-left and share-right */
+/* ===================================
+   CIRCULAR BACK / SHARE (left-anchored)
+=================================== */
 .back-left {
   position: absolute;
   left: 12px;
@@ -103,18 +118,27 @@
   padding: 0;
   border-radius: 50%;
   font-weight: 700;
+  font-family: inherit; /* ✅ Fix */
   border: none;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 18px;
-  box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+  -webkit-tap-highlight-color: transparent; /* ✅ Fix */
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+  transition: background 0.3s ease, transform 0.2s ease;
 }
 
-.back-left:hover { transform: translateY(-2px); background: #5d4037; }
+.back-left:hover {
+  transform: translateY(-2px);
+  background: #5d4037;
+}
 
-/* share-left: positioned on the left below the back button */
+.back-left:active {
+  transform: scale(0.93); /* ✅ Fix */
+}
+
 .share-left {
   position: absolute;
   left: 12px;
@@ -127,31 +151,30 @@
   padding: 0;
   border-radius: 50%;
   font-weight: 700;
+  font-family: inherit; /* ✅ Fix */
   border: none;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 18px;
-  box-shadow: 0 6px 15px rgba(0,0,0,0.12);
+  -webkit-tap-highlight-color: transparent; /* ✅ Fix */
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.12);
+  transition: background 0.3s ease, transform 0.2s ease;
 }
 
-.share-left:hover { background: #2f2f2f; transform: translateY(-2px); }
-
-@media (max-width: 480px) {
-  .back-left, .share-left { width: 40px; height: 40px; font-size: 16px; }
-  .back-left { left: 8px; top: 8px; }
-  .share-left { left: 8px; top: 54px; }
+.share-left:hover {
+  background: #2f2f2f;
+  transform: translateY(-2px);
 }
 
-.back-btn:hover {
-  background: #5d4037;
-  transform: translateY(-3px);
+.share-left:active {
+  transform: scale(0.93); /* ✅ Fix */
 }
 
-/* --------------------------------
+/* ===================================
    MAIN CONTAINER
-----------------------------------*/
+=================================== */
 .details-container {
   display: flex;
   justify-content: center;
@@ -161,44 +184,23 @@
   flex-wrap: wrap;
 }
 
-/* Responsive: tighten back button placement on smaller screens */
-@media (max-width: 900px) {
-  .back-btn {
-    right: 20px;
-    top: 18px;
-    padding: 8px 14px;
-    font-size: 15px;
-  }
-}
-
-@media (max-width: 480px) {
-  .back-btn {
-    right: 12px;
-    top: 12px;
-    padding: 8px 12px;
-    font-size: 14px;
-    border-radius: 10px;
-  }
-}
-
-/* --------------------------------
-   IMAGE (NO BOX, PREMIUM LOOK)
-----------------------------------*/
+/* ===================================
+   IMAGE BOX
+=================================== */
 .details-image-box {
   max-width: 420px;
   width: 100%;
+  flex-shrink: 0; /* ✅ Fix: image won't squish inside flex row */
 }
 
 .details-image-box img {
   width: 100%;
   height: 520px;
   object-fit: cover;
-
   border-radius: 30px;
-
-  /* Professional Fragrance Glow */
-  box-shadow: 0 25px 60px rgba(0,0,0,0.15);
-  transition: 0.35s ease;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.15);
+  display: block; /* ✅ Fix: removes phantom whitespace under image */
+  transition: transform 0.35s ease;
 }
 
 .details-image-box img:hover {
@@ -211,6 +213,7 @@
   gap: 10px;
   margin-top: 12px;
   justify-content: center;
+  flex-wrap: wrap; /* ✅ Fix: thumbs wrap on narrow screens */
 }
 
 .gallery-thumbs .thumb {
@@ -221,7 +224,8 @@
   cursor: pointer;
   opacity: 0.9;
   border: 2px solid transparent;
-  transition: 0.2s ease;
+  -webkit-tap-highlight-color: transparent; /* ✅ Fix */
+  transition: border-color 0.2s ease, transform 0.2s ease, opacity 0.2s ease;
 }
 
 .gallery-thumbs .thumb.active {
@@ -230,12 +234,13 @@
   opacity: 1;
 }
 
-/* --------------------------------
-   PRODUCT TEXT AREA
-----------------------------------*/
+/* ===================================
+   PRODUCT INFO
+=================================== */
 .details-info {
   max-width: 500px;
   width: 100%;
+  min-width: 0; /* ✅ Fix: prevents flex child overflow */
 }
 
 .details-info h1 {
@@ -243,6 +248,7 @@
   color: var(--text-dark);
   font-weight: 800;
   margin-bottom: 10px;
+  word-break: break-word; /* ✅ Fix: long product names won't overflow */
 }
 
 .details-tag {
@@ -270,6 +276,7 @@
   display: flex;
   gap: 12px;
   align-items: center;
+  flex-wrap: wrap; /* ✅ Fix: price + old-price wrap on very narrow screens */
   font-size: 22px;
   margin-bottom: 10px;
   font-weight: 700;
@@ -299,9 +306,9 @@
   font-weight: 600;
 }
 
-/* -------------------------------
+/* ===================================
    RATING & REVIEW INPUT
---------------------------------*/
+=================================== */
 .rating-box label {
   font-size: 16px;
   font-weight: 600;
@@ -311,11 +318,14 @@
   margin-left: 10px;
   padding: 6px 12px;
   border-radius: 8px;
-  border: 1px solid #d8cfc2;
+  border: 1.5px solid #d8cfc2;
   background: var(--white);
   cursor: pointer;
   font-weight: 600;
-  transition: 0.3s;
+  font-family: inherit;  /* ✅ Fix */
+  -webkit-appearance: none; /* ✅ Fix: removes iOS default select styling */
+  appearance: none;
+  transition: border-color 0.3s ease;
 }
 
 .rating-box select:hover {
@@ -328,35 +338,40 @@
   margin-top: 15px;
   padding: 15px;
   border-radius: 12px;
-  border: 1px solid #d8cfc2;
+  border: 1.5px solid #d8cfc2;
   background: #fffdf9;
   font-size: 15px;
+  font-family: inherit; /* ✅ Fix */
+  color: var(--text-dark);
+  -webkit-appearance: none; /* ✅ Fix */
+  appearance: none;
   outline: none;
-  transition: 0.3s;
+  resize: vertical;
+  line-height: 1.5;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .review-box:focus {
   border-color: var(--primary-color);
-  box-shadow: 0 0 8px rgba(121,85,72,0.25);
+  box-shadow: 0 0 0 3px rgba(121, 85, 72, 0.15); /* ✅ Fix: ring > blur */
 }
 
-/* --------------------------------
+/* ===================================
    SUBMIT REVIEW BUTTON
-----------------------------------*/
+=================================== */
 .submit-review-btn {
   margin-top: 15px;
   padding: 12px 35px;
   background: var(--primary-color);
   border: none;
-
   color: var(--white);
   font-size: 16px;
   font-weight: 700;
-
+  font-family: inherit;                    /* ✅ Fix */
   border-radius: 50px;
   cursor: pointer;
-
-  transition: 0.3s ease;
+  -webkit-tap-highlight-color: transparent; /* ✅ Fix */
+  transition: background 0.3s ease, transform 0.2s ease;
 }
 
 .submit-review-btn:hover {
@@ -364,9 +379,13 @@
   transform: translateY(-3px);
 }
 
-/* --------------------------------
+.submit-review-btn:active {
+  transform: scale(0.96); /* ✅ Fix: tactile tap feedback */
+}
+
+/* ===================================
    REVIEWS SECTION
-----------------------------------*/
+=================================== */
 .reviews-section {
   margin-top: 60px;
 }
@@ -383,8 +402,7 @@
   padding: 18px;
   border-radius: 18px;
   margin-bottom: 15px;
-
-  box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
 }
 
 .review-rating {
@@ -401,9 +419,8 @@
 }
 
 /* ===================================
-   MOBILE RESPONSIVE
+   RESPONSIVE — 1024px
 =================================== */
-
 @media (max-width: 1024px) {
   .details-wrapper {
     padding: 30px;
@@ -431,6 +448,9 @@
   }
 }
 
+/* ===================================
+   RESPONSIVE — 768px (Tablet)
+=================================== */
 @media (max-width: 768px) {
   .details-wrapper {
     padding: 20px;
@@ -445,6 +465,7 @@
 
   .details-container {
     gap: 24px;
+    margin-top: 60px; /* ✅ Fix: breathing room below back button */
   }
 
   .details-image-box {
@@ -452,8 +473,7 @@
   }
 
   .details-image-box img {
-    width: 100%;
-    height: 350px;
+    height: 320px;
     border-radius: 20px;
   }
 
@@ -518,7 +538,7 @@
   }
 
   .submit-review-btn {
-    padding: 10px 30px;
+    padding: 11px 28px;
     font-size: 15px;
     margin-top: 12px;
   }
@@ -547,32 +567,59 @@
   }
 }
 
+/* ===================================
+   RESPONSIVE — 480px (Mobile)
+=================================== */
 @media (max-width: 480px) {
   .details-wrapper {
-    padding: 16px;
+    padding: 14px 12px 40px;
   }
 
   .back-btn {
-    right: 12px;
-    top: 12px;
+    right: 10px;
+    top: 10px;
     padding: 7px 12px;
-    font-size: 12px;
+    font-size: 13px;
     border-radius: 8px;
+  }
+
+  .top-actions {
+    right: 8px;
+    top: 8px;
+  }
+
+  .top-actions .back-btn,
+  .share-btn {
+    padding: 7px 10px;
+    font-size: 13px;
+  }
+
+  .back-left,
+  .share-left {
+    width: 40px;
+    height: 40px;
+    font-size: 16px;
+  }
+
+  .back-left {
+    left: 8px;
+    top: 8px;
+  }
+
+  .share-left {
+    left: 8px;
+    top: 54px;
   }
 
   .details-container {
     gap: 16px;
-  }
-
-  .details-image-box {
-    max-width: 100%;
+    margin-top: 56px; /* ✅ Fix: clear of floating back btn */
   }
 
   .details-image-box img {
-    width: 100%;
-    height: 280px;
+    height: 260px;
     border-radius: 16px;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
   }
 
   .gallery-thumbs {
@@ -586,46 +633,44 @@
     border-radius: 8px;
   }
 
-  .details-info {
-    max-width: 100%;
-  }
-
   .details-info h1 {
-    font-size: 22px;
+    font-size: 20px;
     margin-bottom: 6px;
   }
 
   .details-tag {
-    font-size: 12px;
-    margin-bottom: 6px;
+    font-size: 11px;
     letter-spacing: 0.5px;
+    margin-bottom: 6px;
   }
 
   .details-description {
     font-size: 13px;
     margin-bottom: 12px;
+    line-height: 1.55;
   }
 
   .details-size {
-    font-size: 14px;
+    font-size: 13px;
     margin-bottom: 8px;
   }
 
   .details-price {
-    font-size: 16px;
+    gap: 8px;
+    font-size: 15px;
     margin-bottom: 8px;
   }
 
   .details-price .old-price {
-    font-size: 14px;
+    font-size: 13px;
   }
 
   .details-price .new-price {
-    font-size: 18px;
+    font-size: 17px;
   }
 
   .details-stock {
-    font-size: 14px;
+    font-size: 13px;
     margin-bottom: 8px;
   }
 
@@ -641,26 +686,29 @@
   .rating-box select {
     margin-left: 6px;
     padding: 5px 8px;
-    font-size: 12px;
+    font-size: 13px; /* ✅ Fix: 16px would prevent zoom but select is smaller UI */
+    border-radius: 6px;
   }
 
   .review-box {
-    height: 100px;
+    height: 90px;
     padding: 10px;
-    font-size: 13px;
+    font-size: 16px; /* ✅ Fix: prevents iOS auto-zoom on focus */
     margin-top: 10px;
     border-radius: 8px;
   }
 
   .submit-review-btn {
     margin-top: 10px;
-    padding: 10px 20px;
+    padding: 13px 24px; /* ✅ Fix: taller tap target */
     font-size: 14px;
-    border-radius: 8px;
+    border-radius: 40px;
+    width: 100%;        /* ✅ Fix: full-width is easier to tap on small screens */
+    text-align: center;
   }
 
   .reviews-section {
-    margin-top: 30px;
+    margin-top: 32px;
   }
 
   .reviews-section h2 {
@@ -681,97 +729,15 @@
 
   .review-text {
     font-size: 13px;
+    line-height: 1.5;
   }
 }
-      font-size: 13px;
-      line-height: 1.5;
-      margin-bottom: 12px;
-    }
 
-    .details-size {
-      font-size: 14px;
-      margin-bottom: 8px;
-    }
-
-    .details-price {
-      gap: 8px;
-      font-size: 16px;
-      margin-bottom: 8px;
-    }
-
-    .details-price .old-price {
-      font-size: 14px;
-    }
-
-    .details-price .new-price {
-      font-size: 18px;
-    }
-
-    .details-stock {
-      font-size: 13px;
-      margin-bottom: 8px;
-    }
-
-    .details-rating {
-      margin-bottom: 14px;
-      font-size: 14px;
-    }
-
-    .rating-box {
-      margin-bottom: 12px;
-    }
-
-    .rating-box label {
-      font-size: 13px;
-    }
-
-    .rating-box select {
-      margin-left: 8px;
-      padding: 5px 8px;
-      font-size: 12px;
-      border-radius: 6px;
-    }
-
-    .review-box {
-      width: 100%;
-      height: 90px;
-      padding: 10px;
-      font-size: 13px;
-      margin-top: 10px;
-      border-radius: 8px;
-    }
-
-    .submit-review-btn {
-      padding: 10px 20px;
-      font-size: 13px;
-      margin-top: 10px;
-      border-radius: 40px;
-    }
-
-    .reviews-section {
-      margin-top: 32px;
-    }
-
-    .reviews-section h2 {
-      font-size: 20px;
-      margin-bottom: 14px;
-    }
-
-    .review-card {
-      padding: 12px;
-      margin-bottom: 10px;
-      border-radius: 12px;
-    }
-
-    .review-rating {
-      font-size: 15px;
-      margin-bottom: 5px;
-    }
-
-    .review-text {
-      font-size: 13px;
-    }
+/* ===================================
+   SAFE AREA — iPhone X+ home bar
+=================================== */
+@supports (padding: env(safe-area-inset-bottom)) {
+  .details-wrapper {
+    padding-bottom: calc(40px + env(safe-area-inset-bottom));
   }
-  font-size: 15px;
-  color: #555;
 }

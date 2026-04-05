@@ -3,6 +3,13 @@
    Hero + Featured Products
 =================================== */
 
+/* ===== GLOBAL RESET ===== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 :root {
   --primary: #795548;
   --primary-dark: #5d4037;
@@ -21,6 +28,7 @@
 .home-wrapper {
   background: var(--cream-bg);
   min-height: 100vh;
+  min-height: 100dvh; /* ✅ Fix: accounts for mobile browser chrome */
   padding: 50px 24px 80px;
   font-family: "Poppins", sans-serif;
   color: var(--dark-text);
@@ -37,26 +45,18 @@
   max-width: 1220px;
   margin: 0 auto 72px;
   padding: 0;
-  background: transparent;
-  border-radius: 0;
-  box-shadow: none;
   animation: fadeInUp 0.6s ease-out;
 }
 
 @keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 .hero-content {
   flex: 1;
   max-width: 680px;
+  min-width: 0; /* ✅ Fix: prevents flex child from overflowing */
 }
 
 .hero-title {
@@ -66,6 +66,7 @@
   color: var(--dark-text);
   line-height: 1.1;
   letter-spacing: -0.5px;
+  word-break: break-word; /* ✅ Fix: long words won't overflow on narrow screens */
 }
 
 .hero-sub {
@@ -92,8 +93,12 @@
   border: none;
   border-radius: 12px;
   cursor: pointer;
+  font-family: inherit; /* ✅ Fix: iOS uses system font on buttons otherwise */
+  -webkit-tap-highlight-color: transparent; /* ✅ Fix: no blue flash on tap */
   box-shadow: 0 12px 28px rgba(121, 85, 72, 0.25);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: background 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .cta-btn:hover {
@@ -103,7 +108,8 @@
 }
 
 .cta-btn:active {
-  transform: translateY(0);
+  transform: scale(0.97); /* ✅ Fix: tactile tap feedback */
+  box-shadow: 0 8px 20px rgba(121, 85, 72, 0.2);
 }
 
 .secondary-btn {
@@ -115,12 +121,18 @@
   border: 2px solid var(--primary);
   border-radius: 12px;
   cursor: pointer;
-  transition: all 0.3s ease;
+  font-family: inherit; /* ✅ Fix */
+  -webkit-tap-highlight-color: transparent; /* ✅ Fix */
+  transition: background 0.3s ease, transform 0.3s ease;
 }
 
 .secondary-btn:hover {
   background: rgba(121, 85, 72, 0.05);
   transform: translateY(-2px);
+}
+
+.secondary-btn:active {
+  transform: scale(0.97); /* ✅ Fix: tactile tap feedback */
 }
 
 /* ===================================
@@ -147,7 +159,7 @@
   font-size: 15px;
   text-align: center;
   padding: 20px;
-  transition: all 0.3s ease;
+  transition: border-color 0.3s ease, background 0.3s ease;
 }
 
 .poster-placeholder:hover {
@@ -161,6 +173,7 @@
   object-fit: cover;
   border-radius: 20px;
   box-shadow: 0 12px 40px rgba(121, 85, 72, 0.15);
+  display: block; /* ✅ Fix: removes phantom whitespace under image */
   transition: transform 0.3s ease;
 }
 
@@ -184,7 +197,6 @@
   letter-spacing: -0.3px;
 }
 
-/* Use ProductsPage.css styling for product cards - no custom overrides */
 .featured .featured-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -199,15 +211,18 @@
 }
 
 /* ===================================
-   RESPONSIVE DESIGN
+   RESPONSIVE — 1024px (Tablet Wide)
 =================================== */
-
 @media (max-width: 1024px) {
   .hero {
     flex-direction: column;
     gap: 32px;
     padding: 40px 32px;
     margin-bottom: 56px;
+  }
+
+  .hero-content {
+    max-width: 100%;
   }
 
   .hero-title {
@@ -217,23 +232,34 @@
   .hero-poster {
     width: 100%;
     flex-basis: auto;
+    flex: unset; /* ✅ Fix: let it size naturally when stacked */
   }
 
-  .poster-placeholder {
+  .poster-placeholder,
+  .poster-image {
     width: 100%;
-    max-width: 360px;
+    max-width: 420px;
     height: 300px;
+  }
+
+  .featured .featured-grid {
+    grid-template-columns: repeat(2, 1fr); /* ✅ Fix: 4 cols too cramped at 1024px */
+    gap: 20px;
   }
 }
 
+/* ===================================
+   RESPONSIVE — 768px (Tablet)
+=================================== */
 @media (max-width: 768px) {
   .home-wrapper {
     padding: 36px 16px 64px;
   }
 
   .hero {
-    padding: 32px 20px;
+    padding: 32px 0;
     margin-bottom: 48px;
+    gap: 24px;
   }
 
   .hero-title {
@@ -251,8 +277,8 @@
 
   .cta-btn,
   .secondary-btn {
-    padding: 12px 20px;
-    font-size: 14px;
+    padding: 13px 20px;
+    font-size: 15px;
   }
 
   .section-title {
@@ -261,7 +287,7 @@
   }
 
   .featured .featured-grid {
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
     gap: 16px;
   }
 
@@ -278,13 +304,16 @@
   }
 }
 
+/* ===================================
+   RESPONSIVE — 480px (Mobile)
+=================================== */
 @media (max-width: 480px) {
   .home-wrapper {
-    padding: 24px 12px 48px;
+    padding: 24px 12px 56px; /* ✅ Fix: extra bottom for safe area */
   }
 
   .hero {
-    padding: 20px 14px;
+    padding: 20px 0;
     margin-bottom: 32px;
     gap: 20px;
   }
@@ -294,13 +323,14 @@
   }
 
   .hero-title {
-    font-size: 24px;
+    font-size: 26px;
     margin-bottom: 10px;
     line-height: 1.2;
+    letter-spacing: -0.2px;
   }
 
   .hero-sub {
-    font-size: 13px;
+    font-size: 14px;
     margin-bottom: 16px;
   }
 
@@ -313,21 +343,22 @@
   .cta-btn,
   .secondary-btn {
     width: 100%;
-    padding: 12px 18px;
-    font-size: 13px;
+    padding: 14px 18px; /* ✅ Fix: taller for thumb tapping */
+    font-size: 14px;
     border-radius: 10px;
+    text-align: center;
   }
 
   .hero-poster {
     width: 100%;
-    flex-basis: auto;
+    flex: unset;
   }
 
   .poster-image,
   .poster-placeholder {
     width: 100%;
     max-width: 100%;
-    height: 240px;
+    height: 220px;
     border-radius: 14px;
   }
 
@@ -337,18 +368,18 @@
   }
 
   .featured .featured-grid {
-    grid-template-columns: 1fr;
-    gap: 14px;
+    grid-template-columns: repeat(2, 1fr); /* ✅ Fix: 2-col grid more natural than 1-col */
+    gap: 12px;
   }
 
   .featured .product-image {
-    height: 160px;
-    border-radius: 14px;
+    height: 140px;
+    border-radius: 12px;
   }
 
   .featured .product-name {
-    font-size: 14px;
-    margin: 10px 0 4px;
+    font-size: 13px;
+    margin: 8px 0 4px;
     font-weight: 600;
   }
 
@@ -357,20 +388,29 @@
   }
 
   .featured .product-size {
-    font-size: 12px;
+    font-size: 11px;
   }
 
   .featured .product-price {
-    font-size: 12px;
+    font-size: 11px;
   }
 
   .featured .new-price {
-    font-size: 15px;
+    font-size: 14px;
   }
 
   .featured .product-btn {
     padding: 10px 0;
-    font-size: 13px;
-    margin-top: 12px;
+    font-size: 12px;
+    margin-top: 10px;
+  }
+}
+
+/* ===================================
+   SAFE AREA — iPhone X+ home bar
+=================================== */
+@supports (padding: env(safe-area-inset-bottom)) {
+  .home-wrapper {
+    padding-bottom: calc(80px + env(safe-area-inset-bottom));
   }
 }

@@ -1,3 +1,10 @@
+/* ===== GLOBAL RESET ===== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 :root {
   --primary-color: #795548;
   --cream-bg: #fcfaf6;
@@ -11,6 +18,7 @@
 .contact-wrapper {
   background: var(--cream-bg);
   min-height: 100vh;
+  min-height: 100dvh; /* ✅ Fix: accounts for mobile browser chrome */
   padding-bottom: 60px;
 }
 
@@ -65,13 +73,18 @@
   background: var(--white);
   border-radius: 12px;
   box-shadow: var(--box-shadow);
-  transition: 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
   cursor: pointer;
+  -webkit-tap-highlight-color: transparent; /* ✅ Fix: no blue flash on tap */
 }
 
 .info-box:hover {
   transform: translateY(-5px);
   box-shadow: var(--box-shadow-hover);
+}
+
+.info-box:active {
+  transform: scale(0.98); /* ✅ Fix: tactile tap feedback */
 }
 
 .info-box h3 {
@@ -90,7 +103,7 @@
   padding: 35px;
   border-radius: 16px;
   box-shadow: var(--box-shadow);
-  transition: 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .contact-form:hover {
@@ -117,13 +130,16 @@
   padding: 14px;
   margin-bottom: 20px;
   border-radius: 8px;
-  border: 1px solid #d9d1c7;
+  border: 1.5px solid #d9d1c7;
   font-size: 15px;
+  font-family: inherit;  /* ✅ Fix: iOS uses its own font otherwise */
+  color: var(--text-color);
   background: #fffdf9;
-  transition: 0.3s ease;
+  -webkit-appearance: none; /* ✅ Fix: removes iOS default styling */
+  appearance: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Hover effect on inputs */
 .contact-form input:hover,
 .contact-form textarea:hover {
   border-color: var(--primary-color);
@@ -133,12 +149,16 @@
 .contact-form textarea:focus {
   outline: none;
   border-color: var(--primary-color);
-  box-shadow: 0 0 10px rgba(121,85,72,0.25);
+  box-shadow: 0 0 0 3px rgba(121, 85, 72, 0.15); /* ✅ Fix: ring style focus */
+}
+
+.contact-form textarea {
+  resize: vertical;
+  min-height: 120px;
+  line-height: 1.5;
 }
 
 /* SUBMIT BUTTON */
-
-
 .contact-form button {
   width: 100%;
   padding: 14px;
@@ -148,25 +168,24 @@
   border-radius: 10px;
   font-size: 18px;
   font-weight: 600;
+  font-family: inherit;  /* ✅ Fix */
   cursor: pointer;
-  transition: 0.3s ease;
+  -webkit-tap-highlight-color: transparent; /* ✅ Fix */
+  transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
   letter-spacing: 0.5px;
-  box-shadow: 0 4px 12px rgba(121,85,72,0.15);
+  box-shadow: 0 4px 12px rgba(121, 85, 72, 0.15);
 }
 
-/* Hover Effect */
 .contact-form button:hover {
   background: #5d4037;
   transform: translateY(-3px);
-  box-shadow: 0 8px 18px rgba(121,85,72,0.28);
+  box-shadow: 0 8px 18px rgba(121, 85, 72, 0.28);
 }
 
-/* Button Active Click */
 .contact-form button:active {
-  transform: translateY(0px);
-  box-shadow: 0 4px 12px rgba(121,85,72,0.15);
+  transform: scale(0.97); /* ✅ Fix: tactile mobile press feedback */
+  box-shadow: 0 4px 12px rgba(121, 85, 72, 0.15);
 }
-
 
 /* MAP AREA */
 .map-section {
@@ -179,22 +198,24 @@
   height: 350px;
   border: none;
   border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  display: block; /* ✅ Fix: removes phantom whitespace below iframe */
 }
 
-/* Responsive */
+/* ===== TABLET WIDE (900px) ===== */
 @media (max-width: 900px) {
   .contact-container {
     padding: 20px;
+    gap: 30px;
   }
-  .contact-info {
-    width: 100%;
-  }
+
+  .contact-info,
   .contact-form {
     width: 100%;
   }
 }
 
+/* ===== TABLET (768px) ===== */
 @media (max-width: 768px) {
   .contact-wrapper {
     padding-bottom: 40px;
@@ -215,7 +236,7 @@
 
   .contact-container {
     padding: 24px 16px;
-    gap: 40px;
+    gap: 30px;
   }
 
   .contact-info {
@@ -267,7 +288,7 @@
   }
 
   .contact-form button {
-    padding: 12px;
+    padding: 13px;
     font-size: 16px;
   }
 
@@ -281,9 +302,10 @@
   }
 }
 
+/* ===== MOBILE (480px) ===== */
 @media (max-width: 480px) {
   .contact-wrapper {
-    padding-bottom: 30px;
+    padding-bottom: 40px; /* ✅ Fix: extra room for safe area */
   }
 
   .contact-header {
@@ -291,8 +313,8 @@
   }
 
   .contact-header h1 {
-    font-size: 26px;
-    letter-spacing: 0px;
+    font-size: 24px;
+    letter-spacing: 0;
   }
 
   .contact-header p {
@@ -302,7 +324,7 @@
 
   .contact-container {
     padding: 16px 12px;
-    gap: 24px;
+    gap: 20px;
     flex-direction: column;
   }
 
@@ -321,7 +343,7 @@
 
   .info-box {
     padding: 14px;
-    margin-top: 14px;
+    margin-top: 12px;
     border-radius: 10px;
   }
 
@@ -331,12 +353,12 @@
   }
 
   .info-box p {
-    font-size: 12px;
+    font-size: 13px;
   }
 
   .contact-form {
     width: 100%;
-    padding: 20px;
+    padding: 20px 16px;
     border-radius: 12px;
   }
 
@@ -346,29 +368,27 @@
   }
 
   .contact-form label {
-    font-size: 12px;
+    font-size: 13px;
     margin-bottom: 4px;
   }
 
   .contact-form input,
   .contact-form textarea {
-    padding: 10px;
+    padding: 12px;          /* ✅ Fix: keep padding for touch comfort */
     margin-bottom: 14px;
-    font-size: 13px;
-    border-radius: 6px;
-    box-sizing: border-box;
+    font-size: 16px;        /* ✅ Fix: prevents iOS auto-zoom on focus */
+    border-radius: 8px;
   }
 
   .contact-form textarea {
     min-height: 100px;
-    resize: vertical;
   }
 
   .contact-form button {
-    padding: 11px;
-    font-size: 14px;
+    padding: 14px;          /* ✅ Fix: tall tap target for thumbs */
+    font-size: 15px;
     border-radius: 8px;
-    letter-spacing: 0px;
+    letter-spacing: 0;
   }
 
   .map-section {
@@ -377,7 +397,14 @@
   }
 
   .map-section iframe {
-    height: 250px;
+    height: 220px;
     border-radius: 10px;
+  }
+}
+
+/* ===== SAFE AREA — iPhone X+ notch/home bar ===== */
+@supports (padding: env(safe-area-inset-bottom)) {
+  .contact-wrapper {
+    padding-bottom: calc(60px + env(safe-area-inset-bottom));
   }
 }

@@ -1,17 +1,25 @@
-/* ---------------------------------------------------
-   GLOBAL PAGE WRAPPER (Luxury Minimal)
---------------------------------------------------- */
+/* ===== GLOBAL RESET ===== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* ===================================
+   PAGE WRAPPER
+=================================== */
 .products-wrapper {
   width: 100%;
   min-height: 100vh;
+  min-height: 100dvh; /* ✅ Fix: accounts for mobile browser chrome */
   padding: 50px 0;
   background: var(--cream-bg);
   font-family: "Poppins", sans-serif;
 }
 
-/* ---------------------------------------------------
+/* ===================================
    PAGE TITLE
---------------------------------------------------- */
+=================================== */
 .products-heading {
   text-align: center;
   font-size: 46px;
@@ -19,15 +27,16 @@
   color: #4a3e3e;
   margin-bottom: 40px;
   letter-spacing: 1px;
+  padding: 0 16px; /* ✅ Fix: title won't touch screen edges on narrow phones */
+  word-break: break-word; /* ✅ Fix: long words won't overflow */
 }
 
-/* ---------------------------------------------------
-   FILTER SECTION (Premium Glass Filters)
---------------------------------------------------- */
+/* ===================================
+   FILTER SECTION
+=================================== */
 .filters-container {
   width: 88%;
-  margin: 0 auto 45px auto;
-
+  margin: 0 auto 45px;
   display: flex;
   justify-content: center;
   gap: 25px;
@@ -39,17 +48,17 @@
   font-size: 15px;
   font-weight: 600;
   color: #4a3e3e;
-
   background: rgba(255, 255, 255, 0.6);
   border-radius: 16px;
   border: 1px solid rgba(121, 85, 72, 0.25);
-
   backdrop-filter: blur(8px);
   cursor: pointer;
-  transition: 0.35s ease;
+  font-family: inherit;         /* ✅ Fix: iOS uses system font otherwise */
+  -webkit-appearance: none;     /* ✅ Fix: removes iOS default select styling */
+  appearance: none;
   min-width: 190px;
-
   box-shadow: 0 10px 22px rgba(0, 0, 0, 0.1);
+  transition: background 0.35s ease, transform 0.35s ease;
 }
 
 .filter-select:hover {
@@ -57,24 +66,25 @@
   transform: translateY(-4px);
 }
 
-/* ---------------------------------------------------
+/* ===================================
    PRODUCT GRID
---------------------------------------------------- */
+=================================== */
 .products-grid {
   width: 90%;
   margin: auto;
   display: grid;
   gap: 60px;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 2fr));
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); /* ✅ Fix: was 2fr causing uneven cols */
 }
 
-/* ---------------------------------------------------
-   PRODUCT CARD (No Box, Floating Style)
---------------------------------------------------- */
+/* ===================================
+   PRODUCT CARD
+=================================== */
 .product-card {
   text-align: center;
   position: relative;
-  transition: 0.4s ease;
+  -webkit-tap-highlight-color: transparent; /* ✅ Fix: no blue flash on tap */
+  transition: transform 0.4s ease;
   cursor: pointer;
 }
 
@@ -82,32 +92,36 @@
   transform: translateY(-12px);
 }
 
-/* ---------------------------------------------------
-   IMAGE (Floating Soft Glow)
---------------------------------------------------- */
+.product-card:active {
+  transform: scale(0.98); /* ✅ Fix: tactile tap feedback on mobile */
+}
+
+/* ===================================
+   PRODUCT IMAGE
+=================================== */
 .product-image {
   width: 100%;
   height: 330px;
   object-fit: cover;
-
   border-radius: 26px;
-
+  display: block; /* ✅ Fix: removes phantom whitespace under image */
   box-shadow: 0 35px 60px rgba(0, 0, 0, 0.12);
-  transition: 0.4s ease;
+  transition: transform 0.4s ease;
 }
 
 .product-card:hover .product-image {
   transform: scale(1.05);
 }
 
-/* ---------------------------------------------------
-   PRODUCT TEXT (Luxury)
---------------------------------------------------- */
+/* ===================================
+   PRODUCT TEXT
+=================================== */
 .product-name {
   margin-top: 18px;
   font-size: 22px;
   font-weight: 700;
   color: #3e3333;
+  word-break: break-word; /* ✅ Fix: long product names won't overflow */
 }
 
 .product-tag {
@@ -124,13 +138,14 @@
   color: #686767;
 }
 
-/* ---------------------------------------------------
-   PRICE STYLING (Minimal)
---------------------------------------------------- */
+/* ===================================
+   PRICE
+=================================== */
 .product-price {
   margin-top: 12px;
   display: flex;
   justify-content: center;
+  flex-wrap: wrap; /* ✅ Fix: price + old-price stack gracefully when narrow */
   gap: 14px;
   align-items: center;
 }
@@ -147,41 +162,40 @@
   color: #4a3e3e;
 }
 
-/* ---------------------------------------------------
+/* ===================================
    DISCOUNT BUBBLE
---------------------------------------------------- */
+=================================== */
 .discount-tag {
   position: absolute;
   top: 14px;
   right: 20px;
-
   background: #ff5252;
   color: #fff;
-
   padding: 6px 13px;
   font-size: 12px;
   border-radius: 30px;
   font-weight: 700;
   box-shadow: 0 10px 20px rgba(255, 82, 82, 0.35);
+  pointer-events: none; /* ✅ Fix: doesn't interfere with card tap */
 }
 
-/* ---------------------------------------------------
+/* ===================================
    ADD TO CART BUTTON
---------------------------------------------------- */
+=================================== */
 .product-btn {
   margin-top: 18px;
   padding: 13px 0;
   width: 100%;
-
   border-radius: 40px;
   border: none;
-
   background: #795548;
   color: white;
   font-size: 16px;
   font-weight: 600;
-
-  transition: 0.3s ease;
+  font-family: inherit;                    /* ✅ Fix */
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent; /* ✅ Fix */
+  transition: background 0.3s ease, transform 0.2s ease;
 }
 
 .product-btn:hover {
@@ -189,52 +203,68 @@
   transform: translateY(-3px);
 }
 
-/* -------------------------------
+.product-btn:active {
+  transform: scale(0.97); /* ✅ Fix: tactile tap feedback */
+}
+
+/* ===================================
    LOGIN PROMPT MODAL
-----------------------------------*/
+=================================== */
 .login-modal-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.45);
+  background: rgba(0, 0, 0, 0.45);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 80;
+  padding: 16px; /* ✅ Fix: modal won't touch screen edges on small phones */
 }
 
 .login-modal {
   width: 420px;
-  max-width: calc(100% - 48px);
+  max-width: 100%; /* ✅ Fix: respects parent padding instead of fixed calc */
   background: var(--white);
-  padding: 22px;
+  padding: 24px;
   border-radius: 12px;
-  box-shadow: 0 18px 50px rgba(0,0,0,0.25);
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.25);
   text-align: center;
 }
 
 .login-modal h3 {
-  margin: 0 0 8px 0;
+  margin: 0 0 8px;
   color: #3e3333;
+  word-break: break-word; /* ✅ Fix */
 }
 
 .login-modal p {
   color: #666;
   margin-bottom: 18px;
+  font-size: 15px;
 }
 
 .login-modal-actions {
   display: flex;
   gap: 12px;
   justify-content: center;
+  flex-wrap: wrap; /* ✅ Fix: buttons wrap if they're too wide */
 }
 
 .modal-btn {
-  padding: 10px 16px;
+  padding: 11px 20px;
   border-radius: 10px;
   background: #f0f0f0;
   border: none;
   cursor: pointer;
   font-weight: 700;
+  font-family: inherit;                    /* ✅ Fix */
+  font-size: 14px;
+  -webkit-tap-highlight-color: transparent; /* ✅ Fix */
+  transition: background 0.2s ease, transform 0.1s ease;
+}
+
+.modal-btn:active {
+  transform: scale(0.97); /* ✅ Fix */
 }
 
 .modal-primary {
@@ -242,185 +272,244 @@
   color: white;
 }
 
+.modal-primary:hover {
+  background: #5d4037;
+}
+
+/* ===================================
+   RESPONSIVE — 1024px
+=================================== */
 @media (max-width: 1024px) {
   .products-heading {
     font-size: 40px;
     margin-bottom: 32px;
   }
+
   .filters-container {
     width: 92%;
     gap: 18px;
     margin-bottom: 40px;
   }
+
   .filter-select {
     min-width: 170px;
     font-size: 14px;
     padding: 12px 16px;
   }
+
   .products-grid {
     width: 92%;
     gap: 40px;
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   }
+
   .product-image {
     height: 280px;
   }
+
   .product-name {
     font-size: 20px;
     margin-top: 16px;
   }
 }
 
+/* ===================================
+   RESPONSIVE — 768px (Tablet)
+=================================== */
 @media (max-width: 768px) {
   .products-wrapper {
     padding: 36px 0;
   }
+
   .products-heading {
     font-size: 32px;
     margin-bottom: 24px;
     margin-top: 12px;
   }
+
   .filters-container {
     width: 95%;
     gap: 14px;
     margin-bottom: 32px;
-    margin-top: 8px;
   }
+
   .filter-select {
     min-width: 150px;
-    font-size: 13px;
+    font-size: 14px; /* ✅ Fix: 13px is a bit small for comfortable reading */
     padding: 11px 14px;
   }
+
   .products-grid {
     width: 95%;
     gap: 30px;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(2, 1fr); /* ✅ Fix: explicit 2-col more reliable than auto-fit */
   }
+
   .product-image {
-    height: 240px;
+    height: 220px;
     border-radius: 20px;
   }
+
   .product-card:hover {
     transform: translateY(-8px);
   }
-  .product-card:hover .product-image {
-    transform: scale(1.03);
-  }
+
   .product-name {
-    font-size: 18px;
-    margin-top: 14px;
+    font-size: 17px;
+    margin-top: 12px;
   }
+
   .product-tag {
     font-size: 12px;
-    margin-top: 3px;
   }
+
   .product-size {
     font-size: 13px;
   }
+
   .product-price {
     margin-top: 10px;
-    gap: 10px;
+    gap: 8px;
   }
+
   .old-price {
-    font-size: 14px;
+    font-size: 13px;
   }
+
   .new-price {
-    font-size: 19px;
+    font-size: 18px;
   }
+
   .discount-tag {
     top: 10px;
     right: 14px;
-    padding: 5px 11px;
+    padding: 5px 10px;
     font-size: 11px;
   }
+
   .product-btn {
-    margin-top: 14px;
+    margin-top: 12px;
     padding: 11px 0;
     font-size: 14px;
   }
 }
 
+/* ===================================
+   RESPONSIVE — 480px (Mobile)
+=================================== */
 @media (max-width: 480px) {
   .products-wrapper {
-    padding: 24px 0;
+    padding: 24px 0 48px; /* ✅ Fix: extra bottom for safe area */
   }
+
   .products-heading {
-    font-size: 26px;
+    font-size: 24px;
     margin-bottom: 18px;
-    margin-top: 8px;
   }
+
   .filters-container {
-    width: 98%;
+    width: 100%;
+    padding: 0 12px;   /* ✅ Fix: use padding instead of % width on narrow screens */
     gap: 10px;
     margin-bottom: 24px;
     flex-direction: column;
+    align-items: stretch;
   }
+
   .filter-select {
-    min-width: 100%;
-    font-size: 12px;
-    padding: 10px 12px;
+    width: 100%;
+    min-width: unset;
+    font-size: 14px;   /* ✅ Fix: keeps text readable; select zoom handled by appearance:none */
+    padding: 12px 14px;
   }
+
   .products-grid {
-    width: 97%;
+    width: 100%;
+    padding: 0 12px;   /* ✅ Fix: padding instead of % for reliable edge spacing */
     gap: 20px;
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr); /* ✅ Fix: 2-col is more space-efficient than 1-col */
   }
+
   .product-image {
-    height: 200px;
+    height: 160px;     /* ✅ Fix: fits 2-col layout without looking cramped */
     border-radius: 16px;
   }
-  .product-card {
-    margin-bottom: 8px;
-  }
+
   .product-card:hover {
     transform: translateY(-4px);
   }
-  .product-card:hover .product-image {
-    transform: scale(1.02);
-  }
+
   .product-name {
-    font-size: 16px;
-    margin-top: 12px;
+    font-size: 14px;
+    margin-top: 10px;
   }
+
   .product-tag {
-    font-size: 11px;
-    margin-top: 2px;
+    font-size: 10px;
+    letter-spacing: 0.5px;
   }
+
   .product-size {
-    font-size: 12px;
-    margin-top: 4px;
+    font-size: 11px;
+    margin-top: 3px;
   }
+
   .product-price {
-    margin-top: 8px;
-    gap: 8px;
+    margin-top: 6px;
+    gap: 6px;
   }
+
   .old-price {
-    font-size: 13px;
+    font-size: 12px;
   }
+
   .new-price {
-    font-size: 17px;
+    font-size: 15px;
   }
+
   .discount-tag {
     top: 8px;
-    right: 10px;
-    padding: 4px 9px;
+    right: 8px;
+    padding: 3px 8px;
     font-size: 10px;
   }
+
   .product-btn {
-    margin-top: 12px;
+    margin-top: 10px;
     padding: 10px 0;
-    font-size: 13px;
+    font-size: 12px;
     border-radius: 30px;
   }
-  .login-modal { 
-    padding: 16px;
-    width: 90%;
+
+  .login-modal {
+    padding: 20px 16px;
   }
-  .modal-btn { 
-    padding: 8px 12px;
-    font-size: 12px;
+
+  .login-modal h3 {
+    font-size: 17px;
   }
+
+  .login-modal p {
+    font-size: 13px;
+    margin-bottom: 14px;
+  }
+
   .login-modal-actions {
     flex-direction: column;
+  }
+
+  .modal-btn {
+    width: 100%;       /* ✅ Fix: full-width modal buttons easier to tap */
+    padding: 12px;
+    font-size: 14px;
+  }
+}
+
+/* ===================================
+   SAFE AREA — iPhone X+ home bar
+=================================== */
+@supports (padding: env(safe-area-inset-bottom)) {
+  .products-wrapper {
+    padding-bottom: calc(50px + env(safe-area-inset-bottom));
   }
 }

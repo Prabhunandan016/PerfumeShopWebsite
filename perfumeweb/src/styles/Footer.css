@@ -1,4 +1,9 @@
-
+/* ===== GLOBAL RESET ===== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
 
 .footer {
   width: 100%;
@@ -46,7 +51,11 @@
   font-size: 17px;
   font-weight: 600;
   text-decoration: none;
+  -webkit-tap-highlight-color: transparent; /* ✅ Fix: no blue flash on tap */
   transition: color 0.3s;
+  /* ✅ Fix: minimum tap target size for thumbs */
+  padding: 4px 0;
+  display: inline-block;
 }
 
 .footer-link:hover {
@@ -57,11 +66,13 @@
   display: flex;
   gap: 18px;
   margin-top: 8px;
+  flex-wrap: wrap; /* ✅ Fix: wraps icons if screen is very narrow */
+  justify-content: center;
 }
 
 .footer-social-icon {
-  width: 28px;
-  height: 28px;
+  width: 40px;  /* ✅ Fix: was 28px — too small to tap reliably */
+  height: 40px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -69,14 +80,19 @@
   background: #fff;
   border-radius: 50%;
   box-shadow: 0 2px 8px rgba(121, 85, 72, 0.08);
-  transition: background 0.3s, color 0.3s;
   font-size: 18px;
   text-decoration: none;
+  -webkit-tap-highlight-color: transparent; /* ✅ Fix */
+  transition: background 0.3s, color 0.3s, transform 0.1s;
 }
 
 .footer-social-icon:hover {
   background: var(--primary);
   color: #fff;
+}
+
+.footer-social-icon:active {
+  transform: scale(0.92); /* ✅ Fix: tactile tap feedback */
 }
 
 .footer-bottom {
@@ -85,83 +101,113 @@
   font-size: 15px;
   color: var(--muted-text);
   margin-top: 18px;
-  padding-bottom: 4px;
+  padding: 0 16px 4px; /* ✅ Fix: horizontal padding so text doesn't touch edge */
 }
 
+/* ===== TABLET WIDE (1024px) ===== */
 @media (max-width: 1024px) {
   .footer-content {
     padding: 0 18px;
   }
+
   .footer-links {
     gap: 24px;
   }
 }
 
+/* ===== TABLET (768px) ===== */
 @media (max-width: 768px) {
   .footer {
-    padding: 28px 0 16px 0;
+    padding: 28px 0 16px;
     margin-top: 32px;
   }
+
   .footer-content {
     flex-direction: column;
     align-items: center;
     text-align: center;
     gap: 16px;
-    padding: 0 12px;
+    padding: 0 16px;
   }
+
   .footer-logo {
     font-size: 24px;
     margin-bottom: 6px;
   }
+
   .footer-links {
-    gap: 14px;
-    flex-direction: column;
+    gap: 8px 20px;        /* ✅ Fix: row gap + column gap for wrapped links */
+    flex-direction: row;  /* ✅ Fix: horizontal works fine at 768px */
+    justify-content: center;
   }
+
   .footer-link {
     font-size: 15px;
   }
+
   .footer-social {
     gap: 14px;
   }
+
   .footer-bottom {
     font-size: 13px;
     margin-top: 14px;
   }
 }
 
+/* ===== MOBILE (480px) ===== */
 @media (max-width: 480px) {
   .footer {
-    padding: 20px 0 12px 0;
+    padding: 20px 0 16px; /* ✅ Fix: slightly more bottom for safe area */
     margin-top: 24px;
   }
+
   .footer-content {
     flex-direction: column;
     align-items: center;
-    gap: 12px;
-    padding: 0 8px;
+    gap: 14px;
+    padding: 0 12px;
   }
+
   .footer-logo {
     font-size: 20px;
+    letter-spacing: 1px; /* ✅ Fix: tight letter-spacing at small sizes */
     margin-bottom: 4px;
   }
+
   .footer-links {
-    gap: 10px;
-    flex-direction: column;
+    gap: 6px 16px;
+    flex-direction: row;   /* ✅ Fix: keep horizontal, let them wrap naturally */
+    flex-wrap: wrap;
+    justify-content: center;
   }
+
   .footer-link {
     font-size: 13px;
+    padding: 6px 4px;      /* ✅ Fix: taller tap target */
   }
+
   .footer-social {
-    gap: 10px;
+    gap: 12px;
   }
+
   .footer-social-icon {
-    width: 24px;
-    height: 24px;
-    font-size: 14px;
+    width: 38px;           /* ✅ Fix: keep accessible tap target */
+    height: 38px;
+    font-size: 16px;
   }
+
   .footer-bottom {
     font-size: 12px;
-    margin-top: 10px;
-    padding-bottom: 2px;
+    margin-top: 12px;
+    padding: 0 12px 2px;
+    line-height: 1.5;      /* ✅ Fix: readable if text wraps */
+  }
+}
+
+/* ===== SAFE AREA — iPhone X+ home bar ===== */
+@supports (padding: env(safe-area-inset-bottom)) {
+  .footer {
+    padding-bottom: calc(18px + env(safe-area-inset-bottom));
   }
 }
