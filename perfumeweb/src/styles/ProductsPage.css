@@ -11,7 +11,7 @@
 .products-wrapper {
   width: 100%;
   min-height: 100vh;
-  min-height: 100dvh; /* ✅ Fix: accounts for mobile browser chrome */
+  min-height: 100dvh;
   padding: 50px 0;
   background: var(--cream-bg);
   font-family: "Poppins", sans-serif;
@@ -27,8 +27,8 @@
   color: #4a3e3e;
   margin-bottom: 40px;
   letter-spacing: 1px;
-  padding: 0 16px; /* ✅ Fix: title won't touch screen edges on narrow phones */
-  word-break: break-word; /* ✅ Fix: long words won't overflow */
+  padding: 0 16px;
+  word-break: break-word;
 }
 
 /* ===================================
@@ -53,8 +53,8 @@
   border: 1px solid rgba(121, 85, 72, 0.25);
   backdrop-filter: blur(8px);
   cursor: pointer;
-  font-family: inherit;         /* ✅ Fix: iOS uses system font otherwise */
-  -webkit-appearance: none;     /* ✅ Fix: removes iOS default select styling */
+  font-family: inherit;
+  -webkit-appearance: none;
   appearance: none;
   min-width: 190px;
   box-shadow: 0 10px 22px rgba(0, 0, 0, 0.1);
@@ -74,7 +74,7 @@
   margin: auto;
   display: grid;
   gap: 60px;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); /* ✅ Fix: was 2fr causing uneven cols */
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
 }
 
 /* ===================================
@@ -83,7 +83,7 @@
 .product-card {
   text-align: center;
   position: relative;
-  -webkit-tap-highlight-color: transparent; /* ✅ Fix: no blue flash on tap */
+  -webkit-tap-highlight-color: transparent;
   transition: transform 0.4s ease;
   cursor: pointer;
 }
@@ -93,18 +93,19 @@
 }
 
 .product-card:active {
-  transform: scale(0.98); /* ✅ Fix: tactile tap feedback on mobile */
+  transform: scale(0.98);
 }
 
 /* ===================================
-   PRODUCT IMAGE
+   PRODUCT IMAGE — aspect-ratio replaces fixed height
 =================================== */
 .product-image {
   width: 100%;
-  height: 330px;
+  height: auto;          /* ✅ never clips the image */
+  aspect-ratio: 4 / 5;  /* ✅ full image always visible */
   object-fit: cover;
   border-radius: 26px;
-  display: block; /* ✅ Fix: removes phantom whitespace under image */
+  display: block;
   box-shadow: 0 35px 60px rgba(0, 0, 0, 0.12);
   transition: transform 0.4s ease;
 }
@@ -121,7 +122,7 @@
   font-size: 22px;
   font-weight: 700;
   color: #3e3333;
-  word-break: break-word; /* ✅ Fix: long product names won't overflow */
+  word-break: break-word;
 }
 
 .product-tag {
@@ -145,7 +146,7 @@
   margin-top: 12px;
   display: flex;
   justify-content: center;
-  flex-wrap: wrap; /* ✅ Fix: price + old-price stack gracefully when narrow */
+  flex-wrap: wrap;
   gap: 14px;
   align-items: center;
 }
@@ -176,7 +177,7 @@
   border-radius: 30px;
   font-weight: 700;
   box-shadow: 0 10px 20px rgba(255, 82, 82, 0.35);
-  pointer-events: none; /* ✅ Fix: doesn't interfere with card tap */
+  pointer-events: none;
 }
 
 /* ===================================
@@ -192,9 +193,9 @@
   color: white;
   font-size: 16px;
   font-weight: 600;
-  font-family: inherit;                    /* ✅ Fix */
+  font-family: inherit;
   cursor: pointer;
-  -webkit-tap-highlight-color: transparent; /* ✅ Fix */
+  -webkit-tap-highlight-color: transparent;
   transition: background 0.3s ease, transform 0.2s ease;
 }
 
@@ -204,7 +205,7 @@
 }
 
 .product-btn:active {
-  transform: scale(0.97); /* ✅ Fix: tactile tap feedback */
+  transform: scale(0.97);
 }
 
 /* ===================================
@@ -218,12 +219,12 @@
   align-items: center;
   justify-content: center;
   z-index: 80;
-  padding: 16px; /* ✅ Fix: modal won't touch screen edges on small phones */
+  padding: 16px;
 }
 
 .login-modal {
   width: 420px;
-  max-width: 100%; /* ✅ Fix: respects parent padding instead of fixed calc */
+  max-width: 100%;
   background: var(--white);
   padding: 24px;
   border-radius: 12px;
@@ -234,7 +235,7 @@
 .login-modal h3 {
   margin: 0 0 8px;
   color: #3e3333;
-  word-break: break-word; /* ✅ Fix */
+  word-break: break-word;
 }
 
 .login-modal p {
@@ -247,7 +248,7 @@
   display: flex;
   gap: 12px;
   justify-content: center;
-  flex-wrap: wrap; /* ✅ Fix: buttons wrap if they're too wide */
+  flex-wrap: wrap;
 }
 
 .modal-btn {
@@ -257,14 +258,14 @@
   border: none;
   cursor: pointer;
   font-weight: 700;
-  font-family: inherit;                    /* ✅ Fix */
+  font-family: inherit;
   font-size: 14px;
-  -webkit-tap-highlight-color: transparent; /* ✅ Fix */
+  -webkit-tap-highlight-color: transparent;
   transition: background 0.2s ease, transform 0.1s ease;
 }
 
 .modal-btn:active {
-  transform: scale(0.97); /* ✅ Fix */
+  transform: scale(0.97);
 }
 
 .modal-primary {
@@ -304,7 +305,8 @@
   }
 
   .product-image {
-    height: 280px;
+    aspect-ratio: 4 / 5;
+    border-radius: 22px;
   }
 
   .product-name {
@@ -335,18 +337,18 @@
 
   .filter-select {
     min-width: 150px;
-    font-size: 14px; /* ✅ Fix: 13px is a bit small for comfortable reading */
+    font-size: 14px;
     padding: 11px 14px;
   }
 
   .products-grid {
     width: 95%;
     gap: 30px;
-    grid-template-columns: repeat(2, 1fr); /* ✅ Fix: explicit 2-col more reliable than auto-fit */
+    grid-template-columns: repeat(2, 1fr);
   }
 
   .product-image {
-    height: 220px;
+    aspect-ratio: 3 / 4; /* ✅ slightly less tall suits 2-col layout */
     border-radius: 20px;
   }
 
@@ -399,7 +401,7 @@
 =================================== */
 @media (max-width: 480px) {
   .products-wrapper {
-    padding: 24px 0 48px; /* ✅ Fix: extra bottom for safe area */
+    padding: 24px 0 48px;
   }
 
   .products-heading {
@@ -409,7 +411,7 @@
 
   .filters-container {
     width: 100%;
-    padding: 0 12px;   /* ✅ Fix: use padding instead of % width on narrow screens */
+    padding: 0 12px;
     gap: 10px;
     margin-bottom: 24px;
     flex-direction: column;
@@ -419,20 +421,20 @@
   .filter-select {
     width: 100%;
     min-width: unset;
-    font-size: 14px;   /* ✅ Fix: keeps text readable; select zoom handled by appearance:none */
+    font-size: 14px;
     padding: 12px 14px;
   }
 
   .products-grid {
     width: 100%;
-    padding: 0 12px;   /* ✅ Fix: padding instead of % for reliable edge spacing */
+    padding: 0 12px;
     gap: 20px;
-    grid-template-columns: repeat(2, 1fr); /* ✅ Fix: 2-col is more space-efficient than 1-col */
+    grid-template-columns: repeat(2, 1fr);
   }
 
   .product-image {
-    height: 160px;     /* ✅ Fix: fits 2-col layout without looking cramped */
-    border-radius: 16px;
+    aspect-ratio: 1 / 1; /* ✅ square fits tight 2-col grid perfectly */
+    border-radius: 14px;
   }
 
   .product-card:hover {
@@ -499,7 +501,7 @@
   }
 
   .modal-btn {
-    width: 100%;       /* ✅ Fix: full-width modal buttons easier to tap */
+    width: 100%;
     padding: 12px;
     font-size: 14px;
   }
