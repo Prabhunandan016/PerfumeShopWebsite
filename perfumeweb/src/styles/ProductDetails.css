@@ -395,209 +395,294 @@
 }
 
 .review-text {
+  font-size: 16px;
+  color: #555;
+  line-height: 1.5;
+}
 
-  /* ===================================
-     MOBILE RESPONSIVE
-  =================================== */
+/* ===================================
+   MOBILE RESPONSIVE
+=================================== */
 
-  @media (max-width: 1024px) {
-    .details-wrapper {
-      padding: 30px;
-    }
-
-    .details-container {
-      gap: 40px;
-    }
-
-    .details-image-box {
-      max-width: 350px;
-    }
-
-    .details-image-box img {
-      height: 420px;
-      border-radius: 24px;
-    }
-
-    .details-info {
-      max-width: 420px;
-    }
-
-    .details-info h1 {
-      font-size: 32px;
-    }
+@media (max-width: 1024px) {
+  .details-wrapper {
+    padding: 30px;
   }
 
-  @media (max-width: 768px) {
-    .details-wrapper {
-      padding: 20px;
-    }
-
-    .back-btn {
-      right: 16px;
-      top: 16px;
-      padding: 8px 14px;
-      font-size: 14px;
-    }
-
-    .details-container {
-      gap: 24px;
-    }
-
-    .details-image-box {
-      max-width: 100%;
-    }
-
-    .details-image-box img {
-      width: 100%;
-      height: 350px;
-      border-radius: 20px;
-    }
-
-    .gallery-thumbs .thumb {
-      width: 56px;
-      height: 56px;
-    }
-
-    .details-info {
-      max-width: 100%;
-    }
-
-    .details-info h1 {
-      font-size: 26px;
-      margin-bottom: 8px;
-    }
-
-    .details-tag {
-      font-size: 13px;
-      margin-bottom: 8px;
-    }
-
-    .details-description {
-      font-size: 14px;
-      margin-bottom: 16px;
-    }
-
-    .details-size {
-      font-size: 15px;
-    }
-
-    .details-price {
-      font-size: 18px;
-    }
-
-    .details-price .new-price {
-      font-size: 20px;
-    }
-
-    .details-stock {
-      font-size: 15px;
-    }
-
-    .details-rating {
-      font-size: 16px;
-    }
-
-    .rating-box label {
-      font-size: 14px;
-    }
-
-    .rating-box select {
-      padding: 5px 10px;
-      font-size: 14px;
-    }
-
-    .review-box {
-      height: 100px;
-      padding: 12px;
-      font-size: 14px;
-      margin-top: 12px;
-    }
-
-    .submit-review-btn {
-      padding: 10px 30px;
-      font-size: 15px;
-      margin-top: 12px;
-    }
-
-    .reviews-section {
-      margin-top: 40px;
-    }
-
-    .reviews-section h2 {
-      font-size: 24px;
-      margin-bottom: 16px;
-    }
-
-    .review-card {
-      padding: 14px;
-      margin-bottom: 12px;
-      border-radius: 14px;
-    }
-
-    .review-rating {
-      font-size: 16px;
-    }
-
-    .review-text {
-      font-size: 14px;
-    }
+  .details-container {
+    gap: 40px;
   }
 
-  @media (max-width: 480px) {
-    .details-wrapper {
-      padding: 16px;
-    }
+  .details-image-box {
+    max-width: 350px;
+  }
 
-    .back-btn {
-      right: 12px;
-      top: 12px;
-      padding: 7px 12px;
-      font-size: 12px;
-      border-radius: 8px;
-    }
+  .details-image-box img {
+    height: 420px;
+    border-radius: 24px;
+  }
 
-    .details-container {
-      gap: 16px;
-    }
+  .details-info {
+    max-width: 420px;
+  }
 
-    .details-image-box {
-      max-width: 100%;
-    }
+  .details-info h1 {
+    font-size: 32px;
+  }
+}
 
-    .details-image-box img {
-      width: 100%;
-      height: 280px;
-      border-radius: 16px;
-      box-shadow: 0 15px 40px rgba(0,0,0,0.12);
-    }
+@media (max-width: 768px) {
+  .details-wrapper {
+    padding: 20px;
+  }
 
-    .gallery-thumbs {
-      gap: 8px;
-      margin-top: 10px;
-    }
+  .back-btn {
+    right: 16px;
+    top: 16px;
+    padding: 8px 14px;
+    font-size: 14px;
+  }
 
-    .gallery-thumbs .thumb {
-      width: 48px;
-      height: 48px;
-      border-radius: 8px;
-    }
+  .details-container {
+    gap: 24px;
+  }
 
-    .details-info {
-      max-width: 100%;
-    }
+  .details-image-box {
+    max-width: 100%;
+  }
 
-    .details-info h1 {
-      font-size: 22px;
-      margin-bottom: 6px;
-    }
+  .details-image-box img {
+    width: 100%;
+    height: 350px;
+    border-radius: 20px;
+  }
 
-    .details-tag {
-      font-size: 12px;
-      margin-bottom: 6px;
-      letter-spacing: 0.5px;
-    }
+  .gallery-thumbs .thumb {
+    width: 56px;
+    height: 56px;
+  }
 
-    .details-description {
+  .details-info {
+    max-width: 100%;
+  }
+
+  .details-info h1 {
+    font-size: 26px;
+    margin-bottom: 8px;
+  }
+
+  .details-tag {
+    font-size: 13px;
+    margin-bottom: 8px;
+  }
+
+  .details-description {
+    font-size: 14px;
+    margin-bottom: 16px;
+  }
+
+  .details-size {
+    font-size: 15px;
+  }
+
+  .details-price {
+    font-size: 18px;
+  }
+
+  .details-price .new-price {
+    font-size: 20px;
+  }
+
+  .details-stock {
+    font-size: 15px;
+  }
+
+  .details-rating {
+    font-size: 16px;
+  }
+
+  .rating-box label {
+    font-size: 14px;
+  }
+
+  .rating-box select {
+    padding: 5px 10px;
+    font-size: 14px;
+  }
+
+  .review-box {
+    height: 100px;
+    padding: 12px;
+    font-size: 14px;
+    margin-top: 12px;
+  }
+
+  .submit-review-btn {
+    padding: 10px 30px;
+    font-size: 15px;
+    margin-top: 12px;
+  }
+
+  .reviews-section {
+    margin-top: 40px;
+  }
+
+  .reviews-section h2 {
+    font-size: 24px;
+    margin-bottom: 16px;
+  }
+
+  .review-card {
+    padding: 14px;
+    margin-bottom: 12px;
+    border-radius: 14px;
+  }
+
+  .review-rating {
+    font-size: 16px;
+  }
+
+  .review-text {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .details-wrapper {
+    padding: 16px;
+  }
+
+  .back-btn {
+    right: 12px;
+    top: 12px;
+    padding: 7px 12px;
+    font-size: 12px;
+    border-radius: 8px;
+  }
+
+  .details-container {
+    gap: 16px;
+  }
+
+  .details-image-box {
+    max-width: 100%;
+  }
+
+  .details-image-box img {
+    width: 100%;
+    height: 280px;
+    border-radius: 16px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+  }
+
+  .gallery-thumbs {
+    gap: 8px;
+    margin-top: 10px;
+  }
+
+  .gallery-thumbs .thumb {
+    width: 48px;
+    height: 48px;
+    border-radius: 8px;
+  }
+
+  .details-info {
+    max-width: 100%;
+  }
+
+  .details-info h1 {
+    font-size: 22px;
+    margin-bottom: 6px;
+  }
+
+  .details-tag {
+    font-size: 12px;
+    margin-bottom: 6px;
+    letter-spacing: 0.5px;
+  }
+
+  .details-description {
+    font-size: 13px;
+    margin-bottom: 12px;
+  }
+
+  .details-size {
+    font-size: 14px;
+    margin-bottom: 8px;
+  }
+
+  .details-price {
+    font-size: 16px;
+    margin-bottom: 8px;
+  }
+
+  .details-price .old-price {
+    font-size: 14px;
+  }
+
+  .details-price .new-price {
+    font-size: 18px;
+  }
+
+  .details-stock {
+    font-size: 14px;
+    margin-bottom: 8px;
+  }
+
+  .details-rating {
+    font-size: 14px;
+    margin-bottom: 12px;
+  }
+
+  .rating-box label {
+    font-size: 13px;
+  }
+
+  .rating-box select {
+    margin-left: 6px;
+    padding: 5px 8px;
+    font-size: 12px;
+  }
+
+  .review-box {
+    height: 100px;
+    padding: 10px;
+    font-size: 13px;
+    margin-top: 10px;
+    border-radius: 8px;
+  }
+
+  .submit-review-btn {
+    margin-top: 10px;
+    padding: 10px 20px;
+    font-size: 14px;
+    border-radius: 8px;
+  }
+
+  .reviews-section {
+    margin-top: 30px;
+  }
+
+  .reviews-section h2 {
+    font-size: 20px;
+    margin-bottom: 14px;
+  }
+
+  .review-card {
+    padding: 12px;
+    margin-bottom: 10px;
+    border-radius: 12px;
+  }
+
+  .review-rating {
+    font-size: 14px;
+    margin-bottom: 4px;
+  }
+
+  .review-text {
+    font-size: 13px;
+  }
+}
       font-size: 13px;
       line-height: 1.5;
       margin-bottom: 12px;
